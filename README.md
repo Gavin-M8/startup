@@ -17,11 +17,11 @@
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
 - [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -29,7 +29,7 @@ If you've ever felt your inner chef egging you to try something new in the kitch
 
 ### Design
 
-![Design image](cs260_startup_design.jpeg)
+![Design image](startup_design_2.jpeg)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -42,9 +42,11 @@ sequenceDiagram
 
 ### Key features
 
-- Generate new recipes from selected ingredients
-- Edit recipes and add to the ingredient library
-- Save recipes to your user account
+- Cooking quotes are displayed in the header.
+- Users can log in to view their saved recipes.
+- In the account section, users can sign in to view their library of saved recipes.
+- In the ingredients section, users can select which ingredients they want to include in the recipe generator as well as add new ingredients to the ingredient library.
+- In the recipe generator section, users can generate recipes with the selected ingredients, edit the recipes, and save the recipes to their account's library.
 
 ### Technologies
 
