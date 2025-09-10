@@ -10,9 +10,10 @@
 >  If you are not familiar with Markdown then you should review the [documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) before continuing.
 -->
 ## 🚀 Specification Deliverable
-
+<!--
 > [!NOTE]
 >  Fill in this sections as the submission artifact for this deliverable. You can refer to this [example](https://github.com/webprogramming260/startup-example/blob/main/README.md) for inspiration.
+-->
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
@@ -24,11 +25,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-If you've ever felt the itch to try something new in the kitchen, Recipes Please gets you halfway there. This application allows users to generate, experiment with, and save unique recipes! Users can generate recipes from an existing library of ingredients, or they can add their own. Recipes Please will cook up unexpected combinations that might just land in your favorites! Be sure to create an account in order to save your delicious recipes for your next meal!
+If you've ever felt your inner chef egging you to try something new in the kitchen, Recipes? Please gets you halfway there. This application allows users to generate, experiment with, and save unique recipes! Users can generate recipes from an existing library of ingredients, or they can add their own. Recipes? Please will cook up unexpected combinations that might just become your favorites!
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](cs260_startup_design.jpeg)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -41,9 +42,9 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Generate new recipes from selected ingredients
+- Edit recipes and add to the ingredient library
+- Save recipes to your user account
 
 ### Technologies
 
