@@ -25,25 +25,19 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-If you've ever felt your inner chef egging you to try something new in the kitchen, Recipes? Please gets you halfway there. This application allows users to generate, experiment with, and save unique recipes! Users can generate recipes from an existing library of ingredients, or they can add their own. Recipes? Please will cook up unexpected combinations that might just become your favorites!
+If you've ever felt your inner chef egging you to try something new in the kitchen, Recipes? Please gets you halfway there. This application allows users to generate, experiment with, and save unique recipes! Users can generate recipes from an existing library of ingredients, or they can add their own. Recipes? Please will cook up sweet combinations that might just become your favorites!
 
 ### Design
 
-![Design image](startup_design_2.jpeg)
+![Design image 1](startup_design_1.jpeg)
+![Design image 2](startup_design_2.jpeg)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+The images above show the log in page and main application page respectively.
 
 ### Key features
 
 - Cooking quotes are displayed in the header.
-- Users can log in to view their saved recipes.
+- Users can log in to use application and view their saved recipes.
 - In the account section, users can sign in to view their library of saved recipes.
 - In the ingredients section, users can select which ingredients they want to include in the recipe generator as well as add new ingredients to the ingredient library.
 - In the recipe generator section, users can generate recipes with the selected ingredients, edit the recipes, and save the recipes to their account's library.
