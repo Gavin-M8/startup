@@ -1,8 +1,9 @@
-# Your startup name here
+# Recipes? Please.
 
 [My Notes](notes.md)
 
-A brief description of the application here. This application is going to change the world.
+## Description
+If you've ever felt the itch to try something new in the kitchen, Recipes Please gets you halfway there. This application allows users to generate, experiment with, and save unique recipes! Users can generate recipes from an existing library of ingredients, or they can add their own. Recipes Please will cook up unexpected combinations that might just land in your favorites! Be sure to create an account in order to save your delicious recipes for your next meal!
 
 
 > [!NOTE]
