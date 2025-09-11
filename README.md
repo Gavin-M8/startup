@@ -20,7 +20,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] Proper use of Markdown
 - [x] A concise and compelling elevator pitch
 - [x] Description of key features
-- [ ] Description of how you will use each technology
+- [x] Description of how you will use each technology
 - [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
@@ -36,9 +36,8 @@ The images above show the log in page and main application page respectively.
 
 ### Key features
 
-- Cooking quotes are displayed in the header.
-- Users can log in to use application and view their saved recipes.
-- In the account section, users can sign in to view their library of saved recipes.
+- Quotes are displayed in the header.
+- Users can log in to use application and view their saved recipes and other users' saved recipes.
 - In the ingredients section, users can select which ingredients they want to include in the recipe generator as well as add new ingredients to the ingredient library.
 - In the recipe generator section, users can generate recipes with the selected ingredients, edit the recipes, and save the recipes to their account's library.
 
@@ -46,12 +45,17 @@ The images above show the log in page and main application page respectively.
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - For a log in page and main recipe generation page will use correct HTML structure
+- **CSS** - For clean styling choices throughout the application, including colors, spacing, animation, etc.
+- **React** - For user log in, interacting with ingredient library, recipe nodes, and the buttons to generate, edit, and save recipes
+- **Service** - Backend service with endpoints for:
+        - adding ingredients to user library database
+        - adding recipes to user library database
+        - retrieving and displaying other users' saved recipes
+        - displaying quotes 
+        - register, login, and logout users; users cannot generate recipes unless logged in
+- **DB/Login** - stores authentication information, ingredients, and recipes in database
+- **WebSocket** - When a user saves a recipe, it appears in the saved recipes library for online users
 
 ## 🚀 AWS deliverable
 
