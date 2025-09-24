@@ -15,7 +15,7 @@
 >  Fill in this sections as the submission artifact for this deliverable. You can refer to this [example](https://github.com/webprogramming260/startup-example/blob/main/README.md) for inspiration.
 -->
 
-<!-- 
+
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] Proper use of Markdown
@@ -23,7 +23,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] Description of key features
 - [x] Description of how you will use each technology
 - [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
- -->
+
 
 ### Elevator pitch
 
@@ -38,10 +38,10 @@ The images above show the log in page and main application page respectively.
 
 ### Key features
 
-- Quotes are displayed in the header.
-- Users can log in to use application and view their saved recipes and other users' saved recipes.
-- In the ingredients section, users can select which ingredients they want to include in the recipe generator as well as add new ingredients to the ingredient library.
-- In the recipe generator section, users can generate recipes with the selected ingredients, edit the recipes, and save the recipes to their account's library.
+- Quotes are displayed on the home page.
+- Users can log in to use application to generate recipes and see who else has generated recipes.
+- In the ingredients section, users can select which ingredients they want to include in the recipe generator.
+- In the recipe generator section, users can generate recipes with the selected ingredients and save the recipes to their account's library.
 
 ### Technologies
 
@@ -51,19 +51,19 @@ I am going to use the required technologies in the following ways.
 - **CSS** - For clean styling choices throughout the application, including colors, spacing, animation, etc.
 - **React** - For user log in, interacting with ingredient library, recipe nodes, and the buttons to generate, edit, and save recipes
 - **Service** - Backend service with endpoints for:
-        - adding ingredients to user library database
+        - adding number of recipes generated to user library database
         - adding recipes to user library database
-        - retrieving and displaying other users' saved recipes
+        - retrieving and displaying other users' number of recipes saved
         - displaying quotes 
         - register, login, and logout users; users cannot generate recipes unless logged in
-- **DB/Login** - stores authentication information, ingredients, and recipes in database
-- **WebSocket** - When a user saves a recipe, it appears in the saved recipes library for online users
+- **DB/Login** - stores authentication information and recipes in database
+- **WebSocket** - Users will see when other users generate and save recipes
 
 ## 🚀 AWS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://startup.recipesplease.click).
 
 ## 🚀 HTML deliverable
 
