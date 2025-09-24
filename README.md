@@ -69,15 +69,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created three HTML pages, a home page, login page, and recipe generation page
+- [x] **Proper HTML element usage** - I properly used HTML elements
+- [x] **Links** - I included links in the header that navigate to each page
+- [x] **Text** - I included textual content in the application
+- [x] **3rd party API placeholder** - I included a quote placeholder for 3rd party service call on the home page
+- [x] **Images** - I included an image on the home page and an image on the recipe generation page
+- [x] **Login placeholder** - I included a login authentication placeholder on login page and logged in user placeholder on recipe generation page
+- [x] **DB data placeholder** - I included a placeholder for user's number of recipes generated retrieved from the DB under the What's Cookin' section on the recipe generation page
+- [x] **WebSocket placeholder** - I included a placeholder for user activity notifications in the What's Cookin' section of the recipe generation page
 
 ## 🚀 CSS deliverable
 
