@@ -9,6 +9,10 @@ header {
     flex: 0 70px;
 }
 
+nav {
+    text-align: right;
+}
+
 main {
     flex: 1 calc(100vh - 100px);
     display: flex;
