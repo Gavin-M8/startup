@@ -1,4 +1,15 @@
 h1 {
     text-align: center;
+    font-family: "Georgia", sans-serif;
+    font-weight: bold;
     color: rgb(19, 19, 109);
+}
+
+li href {
+    color: rgb(255, 0, 0)
+}
+
+img {
+    border-radius: 10px;
+    box-shadow: 10px;
 }
