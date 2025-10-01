@@ -1,15 +1,19 @@
 body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
 
 }
 
 header {
-
+    flex: 0 70px;
 }
 
 main {
-
+    flex: 1 calc(100vh - 100px)
+    display: flex;
 }
 
 footer {
-    
+    flex: 0 30px;
 }
