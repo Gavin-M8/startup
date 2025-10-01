@@ -11,8 +11,20 @@ header {
     flex: 0 70px;
 }
 
-nav {
-    text-align: right;
+#brand {
+    font-size: 2.5em;
+}
+
+.nav-item {
+    font-family: "Courier New", sans-serif;
+    padding-top: 1em;
+    padding-left: 1.5em;
+}
+
+menu {
+    list-style: none;
+    flex: 1;
+    flex-direction: row !important;
 }
 
 main {
