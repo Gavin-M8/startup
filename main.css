@@ -36,6 +36,18 @@ main {
 }
 
 footer {
-    font-family: "Georgia", sans-serif;
+    color: antiquewhite !important;
+    font-family: "Courier New", sans-serif;
+    font-size: 1.25em;
+    padding-left: 1em;
+    padding-right: 1em;
     flex: 0 30px;
+    justify-items: left;
 }
+
+.github {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+}
+
+
