@@ -1,0 +1,17 @@
+
+main {
+    display: flex;
+    flex: 1 calc(100vh - 100px);
+    flex-direction: row;
+}
+
+h1 {
+    font-family:'Georgia', sans-serif;
+    margin: 5.4em;
+}
+
+h3 {
+    font-family:"Arial narrow", sans-serif;
+    justify-content: left;
+    margin: 5.5em;
+}
