@@ -35,6 +35,10 @@ main {
     justify-content: center;
 }
 
+h2 {
+    font-family: "Georgia", sans-serif;
+}
+
 footer {
     color: antiquewhite !important;
     font-family: "Courier New", sans-serif;
