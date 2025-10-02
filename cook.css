@@ -8,29 +8,29 @@ h1 {
     font-size: 1.5em;
 }
 
-div #main-div {
-    flex: 1 calc(100vh - 100px);
+#main-div {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
-div #left-div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+#left-div, #center-div, #right-div {
+    flex: 1;
+    margin: 2em;
+}
+
+#left-div {
     justify-content: flex-start;
 }
 
-div #center-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#center-div {
     justify-content: center;
 }
 
-div #right-div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+#right-div {
     justify-content: flex-end;
+}
+
+li {
+    list-style: none;
 }
