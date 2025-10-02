@@ -47,7 +47,7 @@ footer {
 
 .github {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 1em;
+    font-size: 0.9em !important;
 }
 
 
