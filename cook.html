@@ -7,6 +7,7 @@
         <title>Recipes Please</title>
 
         <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="cook.css">
 
         <!-- Bootstrap -->
         <link
@@ -34,7 +35,12 @@
 
         <main class="bg-light text-dark">
             <h1 align="center">Recipe Generator</h1>
-            <p><strong>[user name]</strong><br><button><em>logged in</em></button></p>
+
+            <div id="left-div" class="container-fluid">
+            <p id="user"><strong>Homme-le-Chef</strong>
+                <br>
+                <button class="btn btn-dark shadow">Logged In</button>
+            </p>
             <br>
             <h2>What's Cookin'</h2>
             <table>
@@ -64,8 +70,11 @@
                     <td>just generated a recipe!</td>
                 </tr>
             </table>
-            <button>Refresh</button>
+            <button class="btn btn-dark shadow">Refresh</button>
             <br>
+            </div>
+
+            <div id="right-div" class="container-fluid">
             <h2>Ingredients</h2>
                     <form>
                         <label>
@@ -90,17 +99,9 @@
                         </label>
                     </form>
             <br>
-            <button>Generate Recipe</button>
+            <button class="btn btn-dark shadow">Generate Recipe</button>
             <br>
-            <h3>Pizza</h3>
-            <ul>
-                <li>Mix flour, salt, and water to make dough</li>
-                <li>Add sauce, cheese, and pepperonis</li>
-                <li>Bake in oven for 20 minutes at 400 degrees</li>
-            </ul>
-            <img src="recipes-please-pizza.png" alt="chef" width=400 border="5"/>
-            <br>
-            <button>Save Recipe</button>
+             <button class="btn btn-dark shadow">Save Recipe</button>
             <br>
             <h2>Saved Recipes</h2>
             <ul>
@@ -109,6 +110,19 @@
                 <li>Apple Pie</li>
                 <li>Artisan Bread</li>
             </ul>
+            </div>
+
+            <div id="center-div" class="container-fluid">
+            <h3>Pizza</h3>
+            <ul>
+                <li>Mix flour, salt, and water to make dough</li>
+                <li>Add sauce, cheese, and pepperonis</li>
+                <li>Bake in oven for 20 minutes at 400 degrees</li>
+            </ul>
+            <img src="recipes-please-pizza.png" alt="chef" width=400 border="5"/>
+            <br>
+            </div>
+           
         </main>
 
 
