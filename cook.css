@@ -1,6 +1,6 @@
 h1 {
     font-family: "Georgia", sans-serif;
-    margin: 1em !important;
+    /* margin: 1em !important; */
 }
 
 #user {
@@ -10,25 +10,20 @@ h1 {
 
 #main-div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 }
 
 #left-div, #center-div, #right-div {
     flex: 1;
-    margin: 2em;
-}
-
-#left-div {
-    justify-content: flex-start;
-}
-
-#center-div {
+    /* margin: 2em; */
+    width: 30%;
     justify-content: center;
+
 }
 
-#right-div {
-    justify-content: flex-end;
+.center-div img {
+    width: 80%;
 }
 
 li {

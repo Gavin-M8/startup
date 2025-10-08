@@ -2,7 +2,7 @@ body {
     font-family: "Arial", sans-serif;
     display: flex;
     flex-direction: column;
-    min-width: 375px;
+    min-width: 500px;
 
 }
 
@@ -15,10 +15,16 @@ header {
     font-size: 2.5em;
 }
 
+.nav-div {
+    display: flex;
+    flex-direction: column;
+}
+
 .nav-item {
     font-family: "Courier New", sans-serif;
     padding-top: 1em;
     padding-left: 1.5em;
+    float: right;
 }
 
 menu {
@@ -27,7 +33,20 @@ menu {
     flex-direction: row !important;
 }
 
+.pizza img {
+    width: 75%;
+    height: 75%;
+}
+
 main {
+    flex: 1 calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-container {
     flex: 1 calc(100vh - 100px);
     display: flex;
     flex-direction: column;
