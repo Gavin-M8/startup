@@ -15,7 +15,7 @@ export default function App() {
             <nav className="navbar navbar-dark">
                 <div className="nav-div">
                     <menu className="navbar-nav">
-                        <NavLink id="brand" className="navbar-brand" to="#">Recipes Please</NavLink>
+                        <NavLink id="brand" className="navbar-brand" to="/">Recipes Please</NavLink>
                         <li className="nav-item"><NavLink className="nav-link active" to="/" >Home</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link active" to="/login" >Login</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link active" to="/cook" >Cook</NavLink></li>
