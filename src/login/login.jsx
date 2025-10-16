@@ -8,7 +8,15 @@ import { AuthState } from './authState';
 export function Login() {
   return (
     <main className="bg-light text-dark">
-        <h2>Please Log In</h2>
+        
+        <div>
+            {authState === AuthState.Unkown}
+            {authState === AuthState.Authenticated}
+            {authState === AuthState.Unauthenticated}
+
+        </div>
+        
+        {/* <h2>Please Log In</h2>
             <form method="get" action="cook.html">
                 <div>
                     <input type="text" className="form-control" placeholder="email" />
@@ -19,7 +27,7 @@ export function Login() {
                 <button className="btn btn-dark shadow" type="submit">Login</button>
                 <button className="btn btn-dark shadow" type="submit">Create</button>
             </form>
-        <br />
+        <br /> */}
     </main>
   );
 }
