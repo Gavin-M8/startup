@@ -102,11 +102,11 @@ Handling the toggling of the checkboxes was particularly interesting.
 
 1. In the following code, what does the link element do?<br>
       Answer:
-      The <link> element connects an external resource to the HTML document — most commonly a CSS stylesheet.
+      The `<link>` element connects an external resource to the HTML document — most commonly a CSS stylesheet.
 
       Useful notes:
 
-       - Must be placed inside the <head> element.
+       - Must be placed inside the `<head>` element.
 
        - The rel attribute defines the relationship (e.g., "stylesheet", "icon").
 
@@ -130,7 +130,7 @@ Handling the toggling of the checkboxes was particularly interesting.
 
        - Block-level means it takes up the full width of its parent and starts on a new line.
 
-       - <div> is often used as a layout container for sections, grids, or wrappers.
+       - `<div>` is often used as a layout container for sections, grids, or wrappers.
 
       Example:
 
@@ -332,7 +332,7 @@ Handling the toggling of the checkboxes was particularly interesting.
 
       Useful Notes:
 
-       - <span> is an inline element, meaning:
+       - `<span>` is an inline element, meaning:
 
          - It doesn’t start on a new line.
 
@@ -340,7 +340,7 @@ Handling the toggling of the checkboxes was particularly interesting.
 
        - Inline elements can’t have width/height set directly (unless changed to display: block or inline-block).
 
-       - Common inline elements: <a>, <strong>, <em>, <img>, <span>.
+       - Common inline elements: `<a>`, `<strong>`, `<em>`, `<img>`, `<span>`.
 
 13. How would you use CSS to change all the div elements to have a background color of red?<br>
       Answer:
@@ -353,7 +353,7 @@ Handling the toggling of the checkboxes was particularly interesting.
 
       Useful Notes:
 
-       - This uses a type selector, which targets all <div> elements.
+       - This uses a type selector, which targets all `<div>` elements.
 
        - background-color sets the element’s background fill color.
 
@@ -374,11 +374,11 @@ Handling the toggling of the checkboxes was particularly interesting.
 
       Useful Notes:
 
-       - The <a> tag creates a clickable link.
+       - The `<a>` tag creates a clickable link.
 
-       - The <img> tag displays an image.
+       - The `<img>` tag displays an image.
 
-       - Nesting <img> inside <a> makes the image clickable.
+       - Nesting `<img>` inside `<a>` makes the image clickable.
 
        - Always include an alt attribute for accessibility and SEO.
 
@@ -438,9 +438,9 @@ Handling the toggling of the checkboxes was particularly interesting.
 
       Output:
 
-      0
-      1
-      2
+      0 <br>
+      1 <br>
+      2 <br>
 
 
       - console.log() shows the value immediately in the browser console.
@@ -483,11 +483,11 @@ Handling the toggling of the checkboxes was particularly interesting.
 
       Useful Notes:
 
-       - <p> is for paragraphs of text.
+       - `<p>` is for paragraphs of text.
 
-       - <ol> and <ul> are for lists; list items use <li>.
+       - `<ol>` and `<ul>` are for lists; list items use `<li>`.
 
-       - <h1>–<h6> define headings, with <h1> being the most important and <h6> the least.
+       - `<h1>`–`<h6>` define headings, with `<h1>` being the most important and `<h6>` the least.
 
 20. How do you declare the document type to be html?<br>
       Answer:
