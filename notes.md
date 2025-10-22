@@ -604,24 +604,277 @@ Handling the toggling of the checkboxes was particularly interesting.
        - If the object is declared with const, you cannot reassign the object, but you can modify its properties.
 
 24. If you want to include JavaScript on an HTML page, which tag do you use?<br>
-      
+      Answer:
+
+      ``` html
+      <script src="script.js"></script>
+      ```
+
+      or inline:
+
+      ``` html
+      <script>
+        console.log("Hello World");
+      </script>
+      ```
+
+      Useful Notes:
+
+       - The `<script>` tag includes JavaScript in the HTML.
+
+       - `src` attribute → links to an external JS file.
+
+       - Inline JS → write code directly between `<script>` and `</script>`.
+
+       - Best practice: place `<script>` before `</body>` or use defer to avoid blocking page load.
+
 
 25. Given the following HTML, what JavaScript could you use to set the text "animal" to "crow" and leave the "fish" text unaffected?<br>
+      Answer:
+
+      ``` html
+      <p id="animal">animal</p>
+      <p id="fish">fish</p>
+      ```
+      ``` js
+      document.getElementById("animal").textContent = "crow";
+      ```
+
+      Useful Notes:
+
+       - getElementById("animal") selects only the element with that specific ID.
+
+       - .textContent changes the text inside the element.
+
+       - The "fish" paragraph is unaffected because it has a different ID.
+
+      Alternative using querySelector:
+
+      ``` js
+      document.querySelector("#animal").textContent = "crow";
+      ```
 
 26. Which of the following correctly describes JSON?<br>
+      Answer:
+      JSON (JavaScript Object Notation) is a text-based format for representing structured data, often used to exchange data between a server and a client.
+
+      Useful Notes:
+
+       - JSON syntax is similar to JavaScript object syntax:
+
+      ``` js
+      {
+        "name": "Bob",
+        "age": 28,
+        "student": false
+      }
+      ```
+
+       - Key rules:
+
+         - Keys must be strings in double quotes "key".
+
+         - Values can be: string, number, object, array, boolean, or null.
+
+       - JSON is language-independent but widely used in JS.
+
+       - Use JSON.stringify() to convert a JS object to JSON, and JSON.parse() to convert JSON back to a JS object.
 
 27. What does the console command chmod, pwd, cd, ls, vim, nano, mkdir, mv, rm, man, ssh, ps, wget, sudo  do?<br>
+      Answer:
+      | Command | Purpose                                  |
+      | ------- | ---------------------------------------- |
+      | `chmod` | Change file or directory **permissions** |
+      | `pwd`   | Print **current working directory**      |
+      | `cd`    | Change **directory**                     |
+      | `ls`    | List **directory contents**              |
+      | `vim`   | Open **Vim text editor**                 |
+      | `nano`  | Open **Nano text editor**                |
+      | `mkdir` | **Create a new directory**               |
+      | `mv`    | Move or **rename files/directories**     |
+      | `rm`    | **Remove files or directories**          |
+      | `man`   | Show **manual/help** for commands        |
+      | `ssh`   | **Connect to remote machine** via SSH    |
+      | `ps`    | Show **running processes**               |
+      | `wget`  | **Download files** from the internet     |
+      | `sudo`  | Execute a command as **superuser/root**  |
+
 
 28. Which of the following console command creates a remote shell session?<br>
+      Answer:
+      ssh (Secure Shell)
+
+      Useful Notes:
+
+       - ssh user@hostname → connects securely to a remote machine.
+
+       - Allows you to run commands on the remote system.
+
+       - Uses encryption to protect login credentials and data.
+
+       - Common options:
+
+         - `-p` → specify a port
+
+         - `-i` → specify an identity/private key file
 
 29. Which of the following is true when the -la parameter is specified for the ls console command?<br>
+      Answer:
+      It lists all files (including hidden files starting with .) in long format.
+
+      Useful Notes:
+
+       - `ls -l` → long listing format (shows permissions, owner, size, modification date).
+
+       - `ls -a` → include hidden files.
+
+       - Combined as `ls -la` or `ls -al` → long format + hidden files.
+
+      Example output:
+
+      `-rw-r--r--  1 user  staff  1234 Oct 22 12:00 .hiddenfile`
+      `-rw-r--r--  1 user  staff   567 Oct 22 12:01 file.txt`
+
 
 30. Which of the following is true for the domain name banana.fruit.bozo.click, which is the top level domain, which is a subdomain, which is a root domain?<br>
+      Answer:
+
+       - Top-Level Domain (TLD): click
+
+       - Root domain (second-level domain): bozo.click
+
+       - Subdomain(s): fruit and banana (with banana being a sub-subdomain)
+
+      Useful Notes:
+
+       - Domains are read right to left in hierarchy:
+
+        ```
+        banana (sub-subdomain)
+        fruit  (subdomain)
+        bozo   (root / second-level domain)
+        click  (top-level domain)
+        ```
+
+       - The root domain is the main domain under a TLD.
+
+       - Subdomains allow organization or separation of services, e.g., blog.example.com.
 
 31. Is a web certificate is necessary to use HTTPS?<br>
+      Answer:
+      Yes, a TLS/SSL certificate is required to use HTTPS.
+
+      Useful Notes:
+
+       - HTTPS encrypts data between the browser and the server.
+
+       - The certificate authenticates the website and enables encryption.
+
+       - Without a certificate, browsers will show “Not Secure” warnings.
+
+       - Certificates can be obtained from Certificate Authorities (CAs) or free providers like Let’s Encrypt.
 
 32. Can a DNS A record can point to an IP address or another A record?<br>
+      Answer:
+      No, a DNS A record can only point directly to an IP address.
+
+      Useful Notes:
+
+       - An A record maps a domain name to an IPv4 address.
+
+       - If you want to point one domain to another domain, use a CNAME record instead.
+
+           - Example:
+
+            ```
+            www.example.com → CNAME → example.com
+            example.com → A → 192.0.2.1
+            ```
+
+       - A records cannot point to another A record; they must point to the actual IP.
 
 33. Port 443, 80, 22 is reserved for which protocol?<br>
+      Answer:
+      | Port | Protocol / Use                     |
+      | ---- | ---------------------------------- |
+      | 80   | HTTP (HyperText Transfer Protocol) |
+      | 443  | HTTPS (HTTP Secure, encrypted)     |
+      | 22   | SSH (Secure Shell)                 |
+
+     Useful Notes:
+
+     - Port 80 → standard for web traffic (not encrypted).
+
+     - Port 443 → standard for secure web traffic (TLS/SSL).
+
+     - Port 22 → standard for remote login and command execution over SSH.
+
+     - These are well-known ports (0–1023) assigned by IANA. 
+
 
 34. What will the following code using Promises output when executed?<br>
+      Answer:
+      ==== Basic Promise Notes ====
+      1. A Promise represents a value that may be available now, later, or never.
+      2. States: pending → fulfilled (resolved) or rejected.
+      3. .then() handles success, .catch() handles errors, .finally() always runs.
+      4. Promises are asynchronous; executor runs immediately, handlers run later.
+
+      ==== Example: Multiple Promises and console.log order ====
+      ``` js
+      console.log("Start");
+
+      const promise1 = new Promise((resolve, reject) => {
+        console.log("Promise1 executor runs");
+        setTimeout(() => resolve("Result 1"), 1000);
+      });
+
+      const promise2 = new Promise((resolve, reject) => {
+        console.log("Promise2 executor runs");
+        setTimeout(() => reject("Error 2"), 500);
+      });
+
+      promise1
+        .then((value) => {
+          console.log("Promise1 then:", value);
+          return "Chained value";
+        })
+        .then((chained) => {
+          console.log("Promise1 chained then:", chained);
+        })
+        .catch((err) => {
+          console.log("Promise1 catch:", err);
+        })
+        .finally(() => {
+          console.log("Promise1 finally runs");
+        });
+
+      promise2
+        .then((value) => {
+          console.log("Promise2 then:", value);
+        })
+        .catch((err) => {
+          console.log("Promise2 catch:", err);
+        })
+        .finally(() => {
+          console.log("Promise2 finally runs");
+        });
+
+      console.log("End");
+      ```
+
+
+      Expected Console Output (approximate timing):
+
+      ```
+      Copy code
+      Start
+      Promise1 executor runs
+      Promise2 executor runs
+      End
+      Promise2 catch: Error 2
+      Promise2 finally runs
+      Promise1 then: Result 1
+      Promise1 chained then: Chained value
+      Promise1 finally runs
+      ```
