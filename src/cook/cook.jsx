@@ -2,7 +2,11 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import "./cook.css";
 
+
+
 export function Cook({ userName, onLogout }) {
+
+  const username = localStorage.getItem("userName");
 
   function logout() {
     localStorage.removeItem('userName');
@@ -14,7 +18,7 @@ export function Cook({ userName, onLogout }) {
         <h1 align="center">Recipe Generator</h1>
         <div id="main-div">
             <div id="left-div" className="container-fluid">
-                <div className='playerName'>{userName}</div>
+                <div className='playerName'>{username}</div>
                 <Button variant='secondary' onClick={() => logout()}>Logout</Button>
                 <br />
                 <br />
