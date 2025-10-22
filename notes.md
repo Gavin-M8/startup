@@ -101,12 +101,77 @@ Handling the toggling of the checkboxes was particularly interesting.
  ## Midterm Notes
 
 1. In the following code, what does the link element do?
+      Answer:
+      The <link> element connects an external resource to the HTML document — most commonly a CSS stylesheet.
 
-2. In the following code,  what does a div tag do?
+      Useful notes:
+
+      Typical usage:
+
+      <link rel="stylesheet" href="styles.css">
+
+      Must be placed inside the <head> element.
+
+      The rel attribute defines the relationship (e.g., "stylesheet", "icon").
+
+      Can also be used for things like preloading resources or linking favicons.
+
+2. In the following code, what does a div tag do?
+      Answer:
+      The <div> tag is a block-level container used to group other HTML elements together for layout or styling purposes.
+
+      Useful notes:
+
+      It doesn’t add any visual styling by itself — it’s mainly for organization and structure.
+
+      Commonly used with classes or IDs for CSS or JavaScript targeting.
+
+      Example:
+
+      <div class="card">
+        <h2>Title</h2>
+        <p>Some text here</p>
+      </div>
+
+
+      Block-level means it takes up the full width of its parent and starts on a new line.
+
+      <div> is often used as a layout container for sections, grids, or wrappers.
 
 3. In the following code, what is the difference between the #title and .grid selector?
+      Answer:
+      #title targets an element with the specific id "title".
+      Example:
+
+      <h1 id="title">Welcome!</h1>
+
+      #title {
+        color: blue;
+      }
+
+      .grid targets all elements that have the class "grid".
+      Example:
+
+      <div class="grid">...</div>
+      <section class="grid">...</section>
+
+      .grid {
+        display: grid;
+      }
+
+      /# → selects one unique element (by id)
+
+      . → selects one or many elements (by class)
+
+      IDs should be unique per page, while classes are reusable.
 
 4. In the following code, what is the difference between padding and margin?
+      Answer:
+      | Property    | What it affects                       | Where the space goes                                    | Visual analogy                                           |
+      | ----------- | ------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------- |
+      | **Padding** | Space **inside** an element’s border  | Between the element’s **content** and its **border**    | Like the **inside padding** of a box around its contents |
+      | **Margin**  | Space **outside** an element’s border | Between the element’s **border** and **other elements** | Like the **space between boxes**                         |
+
 
 5. Given this HTML and this CSS how will the images be displayed using flex?
 
