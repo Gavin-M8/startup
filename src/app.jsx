@@ -23,7 +23,13 @@ export default function App() {
                         <NavLink id="brand" className="navbar-brand" to="/">Recipes Please</NavLink>
                         <li className="nav-item"><NavLink className="nav-link active" to="/" >Home</NavLink></li>
                         <li className="nav-item"><NavLink className="nav-link active" to="/login" >Login</NavLink></li>
-                        <li className="nav-item"><NavLink className="nav-link active" to="/cook" >Cook</NavLink></li>
+                        {authState === AuthState.Authenticated && (
+                            <li className='nav-item'>
+                            <NavLink className='nav-link' to='/cook'>
+                                Cook
+                            </NavLink>
+                            </li>
+                        )}
                     </menu>
                 </div>
             </nav>
