@@ -507,12 +507,104 @@ Handling the toggling of the checkboxes was particularly interesting.
        - It is not case-sensitive, but <!DOCTYPE html> is standard.
 
 21. What is valid javascript syntax for if, else, for, while, switch statements?<br>
+      Answer:
+
+      ``` js
+      // if / else
+      if (condition) {
+        // code if true
+      } else {
+        // code if false
+      }
+
+      // for loop
+      for (let i = 0; i < 5; i++) {
+        // code repeated 5 times
+      }
+
+      // while loop
+      while (condition) {
+        // code repeated while condition is true
+      }
+
+      // switch statement
+      switch (expression) {
+        case value1:
+          // code
+          break;
+        case value2:
+          // code
+          break;
+        default:
+          // code if no case matches
+      }
+      ```
+
+      Useful Notes:
+
+       - Always use curly braces {} for blocks.
+
+       - Use === for strict equality (recommended).
+
+       - for loops have initialization; condition; increment.
+
+       - switch statements fall through if break is omitted.
 
 22. What is the correct syntax for creating a javascript object?<br>
+      Answer:
+
+      ``` js
+      const person = {
+        name: "Bob",
+        age: 28,
+        student: false
+      };
+      ```
+
+      Useful Notes:
+
+      Objects use curly braces `{}` with key–value pairs.
+
+      Keys and string values are separated by colons (`:`), and pairs by commas.
+
+      Access properties with:
+
+      Dot notation: `person.name`
+
+      Bracket notation: `person["age"]`
+
+      You can also create an empty object:
+
+      ``` js
+      const obj = {};
+      ```
+
+      or with the constructor:
+
+      ``` js
+      const obj = new Object();
+      ```
 
 23. Is it possible to add new properties to javascript objects?<br>
+      Answer:
+      Yes, you can add new properties to objects at any time.
+
+      Useful Notes:
+
+      Example:
+
+      ``` js
+      const person = { name: "Bob" };
+      person.age = 28;          // add a new property
+      person["student"] = false; // alternative syntax
+      ```
+
+       - Objects in JavaScript are mutable, so properties can be added, changed, or deleted.
+
+       - If the object is declared with const, you cannot reassign the object, but you can modify its properties.
 
 24. If you want to include JavaScript on an HTML page, which tag do you use?<br>
+      
 
 25. Given the following HTML, what JavaScript could you use to set the text "animal" to "crow" and leave the "fish" text unaffected?<br>
 
