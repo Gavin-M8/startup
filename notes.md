@@ -100,31 +100,37 @@ Handling the toggling of the checkboxes was particularly interesting.
 
  ## Midterm Notes
 
-1. In the following code, what does the link element do?
+1. In the following code, what does the link element do?<br>
       Answer:
       The <link> element connects an external resource to the HTML document — most commonly a CSS stylesheet.
 
       Useful notes:
 
+       - Must be placed inside the <head> element.
+
+       - The rel attribute defines the relationship (e.g., "stylesheet", "icon").
+
+       - Can also be used for things like preloading resources or linking favicons.
+
       Typical usage:
 
+      ``` html
       <link rel="stylesheet" href="styles.css">
+      ```
 
-      Must be placed inside the <head> element.
-
-      The rel attribute defines the relationship (e.g., "stylesheet", "icon").
-
-      Can also be used for things like preloading resources or linking favicons.
-
-2. In the following code, what does a div tag do?
+2. In the following code, what does a div tag do?<br>
       Answer:
       The <div> tag is a block-level container used to group other HTML elements together for layout or styling purposes.
 
       Useful notes:
 
-      It doesn’t add any visual styling by itself — it’s mainly for organization and structure.
+       - It doesn’t add any visual styling by itself — it’s mainly for organization and structure.
 
-      Commonly used with classes or IDs for CSS or JavaScript targeting.
+       - Commonly used with classes or IDs for CSS or JavaScript targeting.
+
+       - Block-level means it takes up the full width of its parent and starts on a new line.
+
+       - <div> is often used as a layout container for sections, grids, or wrappers.
 
       Example:
 
@@ -135,12 +141,7 @@ Handling the toggling of the checkboxes was particularly interesting.
       </div>
       ```
 
-
-      Block-level means it takes up the full width of its parent and starts on a new line.
-
-      <div> is often used as a layout container for sections, grids, or wrappers.
-
-3. In the following code, what is the difference between the #title and .grid selector?
+3. In the following code, what is the difference between the #title and .grid selector?<br>
       Answer:
       #title targets an element with the specific id "title".
       Example:
@@ -165,13 +166,13 @@ Handling the toggling of the checkboxes was particularly interesting.
       }
       ```
 
-      "#" → selects one unique element (by id)
+       - "#" → selects one unique element (by id)
 
-      "." → selects one or many elements (by class)
+       - "." → selects one or many elements (by class)
 
-      IDs should be unique per page, while classes are reusable.
+       - IDs should be unique per page, while classes are reusable.
 
-4. In the following code, what is the difference between padding and margin?
+4. In the following code, what is the difference between padding and margin?<br>
       Answer:
       | Property    | What it affects                       | Where the space goes                                    | Visual analogy                                           |
       | ----------- | ------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------- |
@@ -179,62 +180,176 @@ Handling the toggling of the checkboxes was particularly interesting.
       | **Margin**  | Space **outside** an element’s border | Between the element’s **border** and **other elements** | Like the **space between boxes**                         |
 
 
-5. Given this HTML and this CSS how will the images be displayed using flex?
+5. Given this HTML and this CSS how will the images be displayed using flex?<br>
+      Answer:
+      They’ll appear side by side in a horizontal row by default.
 
-6. What does the following padding CSS do?
+      Useful Notes:
 
-7. What does the following code using arrow syntax function declaration do?
+       - display: flex → makes child elements line up in a row.
 
-8. What does the following code using map with an array output?
+       - justify-content → controls horizontal alignment.
 
-9. What does the following code output using getElementByID and addEventListener?
+       - align-items → controls vertical alignment.
 
-10. What does the following line of Javascript do using a # selector?
+       - flex-wrap: wrap → lets items move to a new line if needed.
 
-11. Which of the following are true? (mark all that are true about the DOM)
+6. What does the following padding CSS do?<br>
+      Answer:
+      It adds space inside an element, between the content and its border.
 
-12. By default, the HTML span element has a default CSS display property value of: 
+      Useful Notes:
 
-13. How would you use CSS to change all the div elements to have a background color of red?
+       - padding: 10px; → 10px on all sides.
 
-14. How would you display an image with a hyperlink in HTML?
+       - padding: 10px 20px; → 10px top/bottom, 20px left/right.
 
-15. In the CSS box model, what is the ordering of the box layers starting at the inside and working out?
+       - padding: 10px 20px 30px 40px; → top, right, bottom, left (clockwise).
 
-16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?
+       - Padding affects the size of the box but doesn’t move the element away from others — that’s margin.
 
-17. What will the following code output when executed using a for loop and console.log?
+7. What does the following code using arrow syntax function declaration do?<br>
+      Answer:
+      It defines a function using arrow syntax, which is a shorter way to write functions in JavaScript.
 
-18. How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?
+      Useful Notes:
 
-19. What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, third level heading?
+      Example:
 
-20. How do you declare the document type to be html?
+      ``` js
+      const add = (a, b) => a + b;
+      ```
 
-21. What is valid javascript syntax for if, else, for, while, switch statements?
+      Same as:
 
-22. What is the correct syntax for creating a javascript object?
+      ``` js
+      function add(a, b) {
+        return a + b;
+      }
+      ```
 
-23. Is it possible to add new properties to javascript objects?
+      Arrow functions:
 
-24. If you want to include JavaScript on an HTML page, which tag do you use?
+       - Are anonymous (no function name by default).
 
-25. Given the following HTML, what JavaScript could you use to set the text "animal" to "crow" and leave the "fish" text unaffected?
+       - Don’t have their own this, arguments, or super.
 
-26. Which of the following correctly describes JSON?
+       - Are great for short, inline callbacks (like in .map(), .forEach()).
 
-27. What does the console command chmod, pwd, cd, ls, vim, nano, mkdir, mv, rm, man, ssh, ps, wget, sudo  do?
+8. What does the following code using map with an array output?<br>
+      Answer:
+      It outputs a new array where each element is the result of applying a function to the corresponding element in the original array.
 
-28. Which of the following console command creates a remote shell session?
+      Useful Notes:
 
-29. Which of the following is true when the -la parameter is specified for the ls console command?
+      Example:
 
-30. Which of the following is true for the domain name banana.fruit.bozo.click, which is the top level domain, which is a subdomain, which is a root domain?
+      ``` js
+      const nums = [1, 2, 3];
+      const doubled = nums.map(n => n * 2);
+      console.log(doubled); // [2, 4, 6]
+      ```
 
-31. Is a web certificate is necessary to use HTTPS?
+      .map():
 
-32. Can a DNS A record can point to an IP address or another A record?
+       - Does not modify the original array.
 
-33. Port 443, 80, 22 is reserved for which protocol?
+       - Returns a new array.
 
-34. What will the following code using Promises output when executed?
+       - Is often used for transforming data.
+
+9. What does the following code output using getElementByID and addEventListener?<br>
+      Answer:
+      It sets up an event listener on a specific HTML element (found by its ID) so that when an event occurs (like a click), a function runs and produces the output (e.g., updates text or logs something).
+
+      Useful Notes:
+
+      Example:
+
+      ``` js
+      document.getElementById("btn").addEventListener("click", () => {
+        console.log("Button clicked!");
+      });
+      ```
+
+      → Outputs “Button clicked!” when the button is pressed.
+
+       - getElementById("id") → selects one element by ID.
+
+       - addEventListener(event, function) → runs the function when the event happens.
+
+       - Common events: "click", "mouseover", "keydown", "input".
+
+10. What does the following line of Javascript do using a # selector?<br>
+      Answer:
+      It selects an HTML element by its ID using a CSS-style selector.
+
+      Useful Notes:
+
+      Example:
+
+      ``` js
+      document.querySelector("#title");
+      ```
+
+      → Selects the element with id="title".
+
+       - "#" means ID selector (same as CSS).
+
+       - document.querySelector() → returns the first matching element.
+
+       - Use document.querySelectorAll("#id") to get all matches (returns a NodeList).
+
+      Equivalent older method:
+
+      ``` js
+      document.getElementById("title");
+      ```
+
+11. Which of the following are true? (mark all that are true about the DOM)<br>
+
+12. By default, the HTML span element has a default CSS display property value of:<br>
+
+13. How would you use CSS to change all the div elements to have a background color of red?<br>
+
+14. How would you display an image with a hyperlink in HTML?<br>
+
+15. In the CSS box model, what is the ordering of the box layers starting at the inside and working out?<br>
+
+16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?<br>
+
+17. What will the following code output when executed using a for loop and console.log?<br>
+
+18. How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?<br>
+
+19. What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, third level heading?<br>
+
+20. How do you declare the document type to be html?<br>
+
+21. What is valid javascript syntax for if, else, for, while, switch statements?<br>
+
+22. What is the correct syntax for creating a javascript object?<br>
+
+23. Is it possible to add new properties to javascript objects?<br>
+
+24. If you want to include JavaScript on an HTML page, which tag do you use?<br>
+
+25. Given the following HTML, what JavaScript could you use to set the text "animal" to "crow" and leave the "fish" text unaffected?<br>
+
+26. Which of the following correctly describes JSON?<br>
+
+27. What does the console command chmod, pwd, cd, ls, vim, nano, mkdir, mv, rm, man, ssh, ps, wget, sudo  do?<br>
+
+28. Which of the following console command creates a remote shell session?<br>
+
+29. Which of the following is true when the -la parameter is specified for the ls console command?<br>
+
+30. Which of the following is true for the domain name banana.fruit.bozo.click, which is the top level domain, which is a subdomain, which is a root domain?<br>
+
+31. Is a web certificate is necessary to use HTTPS?<br>
+
+32. Can a DNS A record can point to an IP address or another A record?<br>
+
+33. Port 443, 80, 22 is reserved for which protocol?<br>
+
+34. What will the following code using Promises output when executed?<br>
