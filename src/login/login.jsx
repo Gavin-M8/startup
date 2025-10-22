@@ -23,7 +23,10 @@ export function Login( userName, authState, onAuthChange ) {
             )}
         </div>
     </main>
-        /* <h2>Please Log In</h2>
+  );
+}
+
+/* <h2>Please Log In</h2>
             <form method="get" action="cook.html">
                 <div>
                     <input type="text" className="form-control" placeholder="email" />
@@ -35,6 +38,3 @@ export function Login( userName, authState, onAuthChange ) {
                 <button className="btn btn-dark shadow" type="submit">Create</button>
             </form>
         <br /> */
-    
-  );
-}
