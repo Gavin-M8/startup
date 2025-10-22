@@ -307,24 +307,204 @@ Handling the toggling of the checkboxes was particularly interesting.
       ```
 
 11. Which of the following are true? (mark all that are true about the DOM)<br>
+      Answer:
+      The DOM (Document Object Model) is a tree-like structure representing an HTML document that can be accessed and manipulated with JavaScript.
+
+      Useful Notes:
+
+       - The DOM represents each HTML tag as a node (object) in a tree structure.
+
+       - You can use JavaScript to:
+
+         - Read content (.textContent, .innerHTML).
+
+         - Modify elements (.style, .classList.add(), etc.).
+
+         - Create or remove nodes (.appendChild(), .remove()).
+
+       - Changes to the DOM update the visible webpage instantly.
+
+       - The DOM is not the HTML file itself, but a live model of it in memory.
 
 12. By default, the HTML span element has a default CSS display property value of:<br>
+      Answer:
+      inline
+
+      Useful Notes:
+
+       - <span> is an inline element, meaning:
+
+         - It doesn’t start on a new line.
+
+         - It only takes up as much width as its content.
+
+       - Inline elements can’t have width/height set directly (unless changed to display: block or inline-block).
+
+       - Common inline elements: <a>, <strong>, <em>, <img>, <span>.
 
 13. How would you use CSS to change all the div elements to have a background color of red?<br>
+      Answer:
+
+    ``` css
+      div {
+        background-color: red;
+      }
+    ```
+
+      Useful Notes:
+
+       - This uses a type selector, which targets all <div> elements.
+
+       - background-color sets the element’s background fill color.
+
+       - You can target specific divs with:
+
+         - Class: .myDiv { background-color: red; }
+
+         - ID: #mainDiv { background-color: red; }    
 
 14. How would you display an image with a hyperlink in HTML?<br>
+      Answer:
+
+      ``` html
+      <a href="https://example.com">
+        <img src="image.jpg" alt="Example image">
+      </a>
+      ```
+
+      Useful Notes:
+
+       - The <a> tag creates a clickable link.
+
+       - The <img> tag displays an image.
+
+       - Nesting <img> inside <a> makes the image clickable.
+
+       - Always include an alt attribute for accessibility and SEO.
 
 15. In the CSS box model, what is the ordering of the box layers starting at the inside and working out?<br>
+      Answer:
+      Content → Padding → Border → Margin
+
+      Useful Notes:
+
+       - Content: The actual text or image inside the box.
+
+       - Padding: Space inside the border, around the content.
+
+       - Border: The line surrounding the padding and content.
+
+       - Margin: Space outside the border, separating the element from others.
+
+       - The total element size = content + padding + border + margin.
 
 16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?<br>
+      Answer:
+
+      ``` css
+      #trouble {
+        color: green;
+      }
+      ```
+
+      Useful Notes:
+
+       - Use an ID selector (#trouble) to target only the specific element.
+
+      Example HTML:
+
+      ``` html
+      <p id="trouble">trouble</p>
+      <p>double</p>
+      ```
+
+       - This won’t affect other text because IDs are unique.
+
+       - You could also use a class if multiple elements need the same styling.
 
 17. What will the following code output when executed using a for loop and console.log?<br>
+      Answer:
+      It will print each iteration’s value to the console.
+
+      Useful Notes:
+
+      Example:
+
+      ``` js
+      for (let i = 0; i < 3; i++) {
+        console.log(i);
+      }
+      ```
+
+      Output:
+
+      0
+      1
+      2
+
+
+      - console.log() shows the value immediately in the browser console.
+
+      - The output depends on the loop’s start, end, and increment.
+
+      - Common loops: for, while, for...of, for...in.
 
 18. How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?<br>
+      Answer:
+
+      ``` js
+      document.getElementById("byu").style.color = "green";
+      ```
+
+      Useful Notes:
+
+       - getElementById("byu") → selects the element with id="byu".
+
+       - .style.color → modifies the element’s CSS color property.
+
+      Equivalent using querySelector:
+
+      ``` js
+      document.querySelector("#byu").style.color = "green";
+      ```
+
+       - This only affects that one element, since IDs are unique.
 
 19. What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, third level heading?<br>
+      Answer:
+      | Element              | Opening Tag |
+      | -------------------- | ----------- |
+      | Paragraph            | `<p>`       |
+      | Ordered list         | `<ol>`      |
+      | Unordered list       | `<ul>`      |
+      | First level heading  | `<h1>`      |
+      | Second level heading | `<h2>`      |
+      | Third level heading  | `<h3>`      |
+
+      Useful Notes:
+
+       - <p> is for paragraphs of text.
+
+       - <ol> and <ul> are for lists; list items use <li>.
+
+       - <h1>–<h6> define headings, with <h1> being the most important and <h6> the least.
 
 20. How do you declare the document type to be html?<br>
+      Answer:
+
+      ``` html
+      <!DOCTYPE html>
+      ```
+
+      Useful Notes:
+
+       - Must be the very first line in an HTML file.
+
+       - Declares the document as HTML5.
+
+       - Helps the browser render the page correctly.
+
+       - It is not case-sensitive, but <!DOCTYPE html> is standard.
 
 21. What is valid javascript syntax for if, else, for, while, switch statements?<br>
 
