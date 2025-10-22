@@ -1,14 +1,21 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import "./cook.css";
 
 export function Cook() {
+
+  function logout() {
+    localStorage.removeItem('userName');
+    props.onLogout();
+  }
+
   return (
     <main className="bg-light text-dark">
         <h1 align="center">Recipe Generator</h1>
         <div id="main-div">
             <div id="left-div" className="container-fluid">
-                <p id="user"><strong>Homme-le-Chef</strong></p>
-                <button className="btn btn-dark shadow">Logged In</button>
+                <div className='playerName'>{props.userName}</div>
+                <Button variant='secondary' onClick={() => logout()}>Logout</Button>
                 <br />
                 <br />
                 <br />
