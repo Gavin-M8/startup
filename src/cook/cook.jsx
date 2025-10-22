@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import "./cook.css";
 
-export function Cook() {
+export function Cook({ userName, onLogout }) {
 
   function logout() {
     localStorage.removeItem('userName');
@@ -14,7 +14,7 @@ export function Cook() {
         <h1 align="center">Recipe Generator</h1>
         <div id="main-div">
             <div id="left-div" className="container-fluid">
-                <div className='playerName'>{props.userName}</div>
+                <div className='playerName'>{userName}</div>
                 <Button variant='secondary' onClick={() => logout()}>Logout</Button>
                 <br />
                 <br />
@@ -22,11 +22,14 @@ export function Cook() {
                 <h2>What's Cookin'</h2>
                 <hr />
                 <table className="table">
+                    <thead>
                     <tr>
                         <th align="left">User</th>
                         <th align="right">Recipes Generated</th>
                         <th align="right">Activity</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td>Billy Bob</td>
                         <td align="center">9001</td>
@@ -47,6 +50,7 @@ export function Cook() {
                         <td align="center">42</td>
                         <td>just generated a recipe!</td>
                     </tr>
+                    </tbody>
                 </table>
                 <br />
                 <button className="btn btn-dark shadow">Refresh</button>
@@ -55,7 +59,7 @@ export function Cook() {
 
                 <div id="center-div" className="container-fluid">
                 <h2>Pizza</h2>
-                <img src="recipes-please-pizza.png" alt="pizza" className="shadow" border="1"/>
+                <img src="recipes-please-pizza.png" alt="pizza" className="shadow" style={{ border: "1px solid black" }}/>
                 <br />
                 <ul>
                     <li>Mix flour, salt, and water to make dough</li>
