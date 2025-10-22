@@ -128,10 +128,12 @@ Handling the toggling of the checkboxes was particularly interesting.
 
       Example:
 
+      ``` html
       <div class="card">
         <h2>Title</h2>
         <p>Some text here</p>
       </div>
+      ```
 
 
       Block-level means it takes up the full width of its parent and starts on a new line.
@@ -143,25 +145,29 @@ Handling the toggling of the checkboxes was particularly interesting.
       #title targets an element with the specific id "title".
       Example:
 
+      ``` html
       <h1 id="title">Welcome!</h1>
 
       #title {
         color: blue;
       }
+      ```
 
       .grid targets all elements that have the class "grid".
       Example:
 
+      ``` html
       <div class="grid">...</div>
       <section class="grid">...</section>
 
       .grid {
         display: grid;
       }
+      ```
 
-      /# → selects one unique element (by id)
+      "#" → selects one unique element (by id)
 
-      . → selects one or many elements (by class)
+      "." → selects one or many elements (by class)
 
       IDs should be unique per page, while classes are reusable.
 
