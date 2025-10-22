@@ -6,8 +6,13 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
 import { Cook } from './cook/cook';
 import { Home } from './home/home';
+import { AuthState } from './login/authState';
 
 export default function App() {
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
+
   return (
     <BrowserRouter>
         <div className=" body bg-light text-dark">
@@ -26,10 +31,23 @@ export default function App() {
             </header>
 
             <Routes>
-            <Route path='/' element={<Home />} exact />
-            <Route path='/login' element={<Login />} />
-            <Route path='/cook' element={<Cook />} />
-            <Route path='*' element={<NotFound />} />
+                <Route
+                    path='/login'
+                    element={
+                    <Login
+                        userName={userName}
+                        authState={authState}
+                        onAuthChange={(userName, authState) => {
+                        setAuthState(authState);
+                        setUserName(userName);
+                        }}
+                    />
+                    }
+                    exact
+                />
+                <Route path='/' element={<Home />} exact />
+                <Route path='/cook' element={<Cook />} />
+                <Route path='*' element={<NotFound />} />
             </Routes>
 
             <footer className="bg-dark text-light">
