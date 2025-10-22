@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
-import './authenticated.css';
 
 export function Authenticated(props) {
   const navigate = useNavigate();
@@ -22,4 +22,4 @@ export function Authenticated(props) {
       </Button>
     </div>
   );
-}
+} 
