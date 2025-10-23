@@ -52,7 +52,20 @@ export default function App() {
                     exact
                 />
                 <Route path='/' element={<Home />} exact />
-                <Route path='/cook' element={<Cook />} />
+                <Route
+                path='/cook'
+                element={
+                    <Cook
+                    userName={userName}
+                    authState={authState}
+                    setAuthState={setAuthState}
+                    onLogout={() => {
+                        setAuthState(AuthState.Unauthenticated);
+                        setUserName('');
+                    }}
+                    />
+                }
+                />
                 <Route path='*' element={<NotFound />} />
             </Routes>
 

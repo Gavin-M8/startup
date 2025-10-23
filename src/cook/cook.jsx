@@ -2,23 +2,23 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { AuthState } from '../login/authState';
+import { useEffect, useState } from "react";
 import "./cook.css";
 
 
 export function Cook(props) {
 
-  const username = localStorage.getItem("userName");
-  const navigate = useNavigate();
+    const username = localStorage.getItem("userName");
+    const navigate = useNavigate();
 
-  const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
-  const [authState, setAuthState] = React.useState(currentAuthState);
 
-  function logout() {
-    localStorage.removeItem('userName');
-    // props.onLogout();
-    setAuthState(AuthState.Unauthenticated);
-    navigate('/login');
-  }
+    function logout() {
+        localStorage.removeItem("userName");
+        props.setAuthState(AuthState.Unauthenticated);
+        props.onLogout?.();
+        navigate("/login");
+    }
+
 
   return (
     <main className="bg-light text-dark">
