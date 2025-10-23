@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { AuthState } from '../login/authState';
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "./cook.css";
 
 
@@ -62,9 +63,63 @@ export function Cook(props) {
 
     const [recipeDisplay, setRecipeDisplay] = useState(null);
 
+
+    function WhatsCookin() {
+        const [users, setUsers] = useState([]);
+
+        const randomUsers = ["BillyBob", "CoolPerson225", "ChefMaster", "Foodie42", "EggLover", "NoodleKing", "SauceBoss"];
+        const activities = ["just generated a recipe!", "just logged in", "just logged out"];
+
+        useEffect(() => {
+            const interval = setInterval(() => {
+            const name = randomUsers[Math.floor(Math.random() * randomUsers.length)];
+            const recipes = Math.floor(Math.random() * 2000) + 1;
+            const activity = activities[Math.floor(Math.random() * activities.length)];
+            const newUser = { id: Date.now(), name, recipes, activity };
+
+            setUsers(prev => {
+                const updated = [...prev, newUser];
+                return updated.slice(-5); // keep only the 5 most recent
+            });
+
+            // Remove this specific user after 5 seconds
+            setTimeout(() => {
+                setUsers(prev => prev.filter(u => u.id !== newUser.id));
+            }, 5000);
+            }, 3000); // new user every 3 seconds
+
+            return () => clearInterval(interval);
+        }, []);
+
+        return (
+            <div>
+            <h2>What's Cookin'</h2>
+            <hr />
+            <div className="user-list">
+                <AnimatePresence>
+                {users.map(user => (
+                    <motion.div
+                    key={user.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="shadow-sm p-2 mb-3 rounded bg-white border"
+                    >
+                    <strong>{user.name}</strong> — <em>{user.activity}</em>
+                    <br />
+                    <span style={{ color: "#666" }}>Recipes Generated: {user.recipes}</span>
+                    </motion.div>
+                ))}
+                </AnimatePresence>
+            </div>
+            </div>
+        );
+        }
+
+
      function IngredientsForm() {
         
-
         const handleChange = (event) => {
             const { name, checked } = event.target;
             setSelectedIngredients(prevState => ({
@@ -190,39 +245,7 @@ export function Cook(props) {
                 <br />
                 <br />
                 <br />
-                <h2>What's Cookin'</h2>
-                <hr />
-                <table className="table">
-                    <thead>
-                    <tr>
-                        <th align="left">User</th>
-                        <th align="right">Recipes Generated</th>
-                        <th align="right">Activity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Billy Bob</td>
-                        <td align="center">9001</td>
-                        <td>just generated a recipe!</td>
-                    </tr>
-                    <tr>
-                        <td>normal guy</td>
-                        <td align="center">153</td>
-                        <td>just logged out</td>
-                    </tr>
-                    <tr>
-                        <td>coolperson225</td>
-                        <td align="center">79</td>
-                        <td>just logged in</td>
-                    </tr>
-                    <tr>
-                        <td>Jimbo</td>
-                        <td align="center">42</td>
-                        <td>just generated a recipe!</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <WhatsCookin />
                 
             </div>
 
