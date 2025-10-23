@@ -19,35 +19,35 @@ export function Cook(props) {
         navigate("/login");
     }
 
-   const foods = [
+   const food = [
         {
             name: "Chicken Alfredo Pasta",
             ingredients: ["flour", "eggs", "cheese", "chicken", "milk"],
-            image: "chicken-alfredo-pasta.png",
+            image: "/alfredo.png",
             recipe: "Cook pasta, grill chicken, make Alfredo sauce with flour, milk, and cheese. Combine all and serve hot."
         },
         {
             name: "Cheesy Chicken Quesadilla",
             ingredients: ["flour", "cheese", "chicken"],
-            image: "cheesy-chicken-quesadilla.png",
+            image: "/quesadilla.png",
             recipe: "Place cooked chicken and cheese on a flour tortilla, fold, and cook on skillet until golden and cheese melts."
         },
         {
             name: "Homemade Pancakes",
             ingredients: ["flour", "eggs", "milk"],
-            image: "homemade-pancakes.png",
+            image: "/pancakes.png",
             recipe: "Mix flour, eggs, and milk to make batter. Pour onto hot griddle and cook until golden on both sides. Serve with syrup."
         },
         {
             name: "Chicken Pot Pie",
             ingredients: ["flour", "eggs", "chicken", "milk"],
-            image: "chicken-pot-pie.png",
+            image: "/pie.png",
             recipe: "Make a dough with flour and eggs, cook chicken, make creamy sauce with milk, assemble, and bake until crust is golden."
         },
         {
             name: "Cheese Omelette",
             ingredients: ["eggs", "cheese", "milk"],
-            image: "cheese-omelette.png",
+            image: "/omelet.png",
             recipe: "Beat eggs with milk, pour into pan, add cheese, fold omelette, and cook until set."
         }
         ];
@@ -68,6 +68,11 @@ export function Cook(props) {
             [name]: checked
             }));
         };
+
+          useEffect(() => {
+            const audio = new Audio("/sound-ding.mp3");
+            audio.play();
+            }, [selectedIngredients]);
 
         return (
             <form>
@@ -124,6 +129,27 @@ export function Cook(props) {
         );
         }
 
+  function getRandomRecipe() {
+        const randomRecipe = food[Math.floor(Math.random() * food.length)];
+
+        return (
+            <div id="center-div" className="container-fluid">
+            <h2>{randomRecipe.name}</h2>
+            <img
+                src={randomRecipe.image}
+                alt={randomRecipe.name}
+                className="shadow"
+                style={{ border: "1px solid black" }}
+            />
+            <br />
+            <p style={{ whiteSpace: "pre-line" }}>{randomRecipe.recipe}</p>
+            <br />
+            {/* <button className="btn btn-dark shadow">Save Recipe</button>
+            <br /> */}
+            </div>
+        );
+        }
+
   return (
     <main className="bg-light text-dark">
         <h1 align="center">Recipe Generator</h1>
@@ -167,24 +193,12 @@ export function Cook(props) {
                     </tr>
                     </tbody>
                 </table>
-                <br />
+                {/* <br />
                 <button className="btn btn-dark shadow">Refresh</button>
-                <br />
+                <br /> */}
             </div>
 
-                <div id="center-div" className="container-fluid">
-                <h2>Pizza</h2>
-                <img src="recipes-please-pizza.png" alt="pizza" className="shadow" style={{ border: "1px solid black" }}/>
-                <br />
-                <ul>
-                    <li>Mix flour, salt, and water to make dough</li>
-                    <li>Add sauce, cheese, and pepperonis</li>
-                    <li>Bake in oven for 20 minutes at 400 degrees</li>
-                </ul>
-                <br />
-                <button className="btn btn-dark shadow">Save Recipe</button>
-                <br />
-                </div>
+            {getRandomRecipe()}
 
                 <div id="right-div" className="container-fluid">
                 <h2>Ingredients</h2>
@@ -192,13 +206,13 @@ export function Cook(props) {
                 <br />
                 <button className="btn btn-dark shadow">Generate Recipe</button>
                 <br />
-                <h2 id="saved-recipes">Saved Recipes</h2>
+                {/* <h2 id="saved-recipes">Saved Recipes</h2>
                 <ul>
                     <li>Ice Cream</li>
                     <li>Fried Chicken</li>
                     <li>Apple Pie</li>
                     <li>Artisan Bread</li>
-                </ul>
+                </ul> */}
                 </div>
         </div>
     </main>
