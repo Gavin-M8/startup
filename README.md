@@ -102,8 +102,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I trimmed out the saved recipes part but mocked out all the other functionality.
+- [x] **Hooks** - I used useState and useEffect hooks (primarily in home.jsx and cook.jsx).
 
 ## 🚀 Service deliverable
 
