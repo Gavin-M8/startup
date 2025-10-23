@@ -52,14 +52,18 @@ export function Cook(props) {
         }
         ];
 
+    const [selectedIngredients, setSelectedIngredients] = useState({
+        flour: false,
+        eggs: false,
+        cheese: false,
+        chicken: false,
+        milk: false,
+    });
+
+    const [recipeDisplay, setRecipeDisplay] = useState(null);
+
      function IngredientsForm() {
-        const [selectedIngredients, setSelectedIngredients] = useState({
-            flour: false,
-            eggs: false,
-            cheese: false,
-            chicken: false,
-            milk: false,
-        });
+        
 
         const handleChange = (event) => {
             const { name, checked } = event.target;
@@ -129,30 +133,56 @@ export function Cook(props) {
         );
         }
 
-  function getRandomRecipe() {
-        const randomRecipe = food[Math.floor(Math.random() * food.length)];
+  function getRandomRecipe(selectedIngredients) {
+    const matchingRecipes = food.filter(recipe =>
+        recipe.ingredients.every(ing => selectedIngredients.includes(ing))
+    );
 
+    if (matchingRecipes.length === 0 || selectedIngredients.length < 2) {
         return (
-            <div id="center-div" className="container-fluid">
-            <h2>{randomRecipe.name}</h2>
+        <div id="center-div" className="container-fluid text-center">
+            <h2>Choose Some Ingredients</h2>
+            <br />
             <img
-                src={randomRecipe.image}
-                alt={randomRecipe.name}
-                className="shadow"
-                style={{ border: "1px solid black" }}
+            src="/lechef.png"
+            alt="placeholder"
+            className="shadow"
+            style={{ border: "1px solid black" }}
             />
-            <br />
-            <p style={{ whiteSpace: "pre-line" }}>{randomRecipe.recipe}</p>
-            <br />
-            {/* <button className="btn btn-dark shadow">Save Recipe</button>
-            <br /> */}
-            </div>
+            <br /> <br />
+            <h5>
+            Select more ingredients to generate a recipe!
+            </h5>
+        </div>
         );
-        }
+    }
+
+    const randomRecipe =
+        matchingRecipes[Math.floor(Math.random() * matchingRecipes.length)];
+
+            return (
+                <div id="center-div" className="container-fluid">
+                <h2>{randomRecipe.name}</h2>
+                <img
+                    src={randomRecipe.image}
+                    alt={randomRecipe.name}
+                    className="shadow"
+                    style={{ border: "1px solid black" }}
+                />
+                <br />
+                <p style={{ whiteSpace: "pre-line" }}>{randomRecipe.recipe}</p>
+                <br />
+                </div>
+            );
+            }
 
   return (
     <main className="bg-light text-dark">
         <h1 align="center">Recipe Generator</h1>
+      
+        <hr style={{ border: "1px solid black", width: "80%" }} />
+        <br /><br /><br />
+
         <div id="main-div">
             <div id="left-div" className="container-fluid">
                 <div className='playerName'>{username}</div>
@@ -198,13 +228,23 @@ export function Cook(props) {
                 <br /> */}
             </div>
 
-            {getRandomRecipe()}
+            {getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))}
+
 
                 <div id="right-div" className="container-fluid">
                 <h2>Ingredients</h2>
                 <IngredientsForm />
                 <br />
-                <button className="btn btn-dark shadow">Generate Recipe</button>
+                <button
+                className="btn btn-dark shadow"
+                onClick={() =>
+                    setRecipeDisplay(
+                    getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))
+                    )
+                }
+                >
+                Generate Recipe
+                </button>
                 <br />
                 {/* <h2 id="saved-recipes">Saved Recipes</h2>
                 <ul>

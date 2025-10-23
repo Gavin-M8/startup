@@ -1,25 +1,11 @@
-h1 {
+* {
     font-family: "Georgia", sans-serif;
-    /* margin: 1em !important; */
 }
 
 #user {
     font-family: "Georgia", sans-serif;
     font-size: 1.5em;
 }
-
-/* #main-div {
-    display: flex;
-    flex-direction: column;
-}
-
-#left-div, #center-div, #right-div {
-    flex: 1;
-    margin: 2em;
-    width: 30%;
-    justify-content: center;
-
-} */
 
 #main-div {
     display: flex;
