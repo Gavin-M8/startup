@@ -139,11 +139,6 @@ export function Cook(props) {
             }));
         };
 
-          useEffect(() => {
-            const audio = new Audio("/sound-ding.mp3");
-            audio.play();
-            }, [selectedIngredients]);
-
         return (
             <form>
             <label>
@@ -275,11 +270,20 @@ export function Cook(props) {
                 <br />
                 <button
                 className="btn btn-dark shadow"
-                onClick={() =>
-                    setRecipeDisplay(
-                    getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))
-                    )
-                }
+                onClick={() => {
+                    // Filter selected ingredients
+                    const selected = Object.keys(selectedIngredients).filter(
+                    (ing) => selectedIngredients[ing]
+                    );
+
+                    // Generate a recipe
+                    const recipe = getRandomRecipe(selected);
+                    setRecipeDisplay(recipe);
+
+                    // Play the ding only when a recipe is generated
+                    const audio = new Audio("/sound-ding.mp3");
+                    audio.play();
+                }}
                 >
                 Generate Recipe
                 </button>
