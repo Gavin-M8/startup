@@ -19,15 +19,38 @@ export function Cook(props) {
         navigate("/login");
     }
 
-    const foods = [
-        { name: "Chicken Alfredo Pasta", ingredients: ["flour", "eggs", "cheese", "chicken", "milk"] },
-        { name: "Cheesy Chicken Quesadilla", ingredients: ["flour", "cheese", "chicken"] },
-        { name: "Homemade Pancakes", ingredients: ["flour", "eggs", "milk"] },
-        { name: "Chicken Pot Pie", ingredients: ["flour", "eggs", "chicken", "milk"] },
-        { name: "Cheese Omelette", ingredients: ["eggs", "cheese", "milk"] }
-    ];
-
-
+   const foods = [
+  {
+    name: "Chicken Alfredo Pasta",
+    ingredients: ["flour", "eggs", "cheese", "chicken", "milk"],
+    image: "chicken-alfredo-pasta.png",
+    recipe: "Cook pasta, grill chicken, make Alfredo sauce with flour, milk, and cheese. Combine all and serve hot."
+  },
+  {
+    name: "Cheesy Chicken Quesadilla",
+    ingredients: ["flour", "cheese", "chicken"],
+    image: "cheesy-chicken-quesadilla.png",
+    recipe: "Place cooked chicken and cheese on a flour tortilla, fold, and cook on skillet until golden and cheese melts."
+  },
+  {
+    name: "Homemade Pancakes",
+    ingredients: ["flour", "eggs", "milk"],
+    image: "homemade-pancakes.png",
+    recipe: "Mix flour, eggs, and milk to make batter. Pour onto hot griddle and cook until golden on both sides. Serve with syrup."
+  },
+  {
+    name: "Chicken Pot Pie",
+    ingredients: ["flour", "eggs", "chicken", "milk"],
+    image: "chicken-pot-pie.png",
+    recipe: "Make a dough with flour and eggs, cook chicken, make creamy sauce with milk, assemble, and bake until crust is golden."
+  },
+  {
+    name: "Cheese Omelette",
+    ingredients: ["eggs", "cheese", "milk"],
+    image: "cheese-omelette.png",
+    recipe: "Beat eggs with milk, pour into pan, add cheese, fold omelette, and cook until set."
+  }
+];
 
 
   return (
