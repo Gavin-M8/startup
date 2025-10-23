@@ -19,6 +19,16 @@ export function Cook(props) {
         navigate("/login");
     }
 
+    const foods = [
+        { name: "Chicken Alfredo Pasta", ingredients: ["flour", "eggs", "cheese", "chicken", "milk"] },
+        { name: "Cheesy Chicken Quesadilla", ingredients: ["flour", "cheese", "chicken"] },
+        { name: "Homemade Pancakes", ingredients: ["flour", "eggs", "milk"] },
+        { name: "Chicken Pot Pie", ingredients: ["flour", "eggs", "chicken", "milk"] },
+        { name: "Cheese Omelette", ingredients: ["eggs", "cheese", "milk"] }
+    ];
+
+
+
 
   return (
     <main className="bg-light text-dark">
