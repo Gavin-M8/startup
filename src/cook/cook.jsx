@@ -223,13 +223,10 @@ export function Cook(props) {
                     </tr>
                     </tbody>
                 </table>
-                {/* <br />
-                <button className="btn btn-dark shadow">Refresh</button>
-                <br /> */}
+                
             </div>
 
-            {getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))}
-
+            {recipeDisplay || getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))}
 
                 <div id="right-div" className="container-fluid">
                 <h2>Ingredients</h2>
