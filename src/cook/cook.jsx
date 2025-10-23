@@ -264,7 +264,7 @@ export function Cook(props) {
                 <div id="right-div" className="container-fluid">
 
                 <div className="user-bar" align="center">
-                    <div className='playerName'>{username}</div>
+                    <div className='playerName'><h5>{username}</h5></div>
                     <Button className="btn btn-dark shadow" variant='secondary' onClick={() => logout()}>Logout</Button>
                 </div>
 
