@@ -43,7 +43,7 @@ h1 {
     text-align: right;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   #main-div {
     flex-direction: column; /* stack vertically on smaller screens */
   }
@@ -51,7 +51,7 @@ h1 {
 
 
 .center-div img {
-    width: 80%;
+    width: 100%;
 }
 
 li {
