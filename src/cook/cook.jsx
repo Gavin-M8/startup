@@ -20,6 +20,17 @@ export function Cook(props) {
         navigate("/login");
     }
 
+
+    function incrementRecipeCount() {
+        const username = localStorage.getItem("userName");
+        if (!username) return;
+        const userCounts = JSON.parse(localStorage.getItem("userRecipeCounts")) || {};
+        userCounts[username] = (userCounts[username] || 0) + 1;
+        localStorage.setItem("userRecipeCounts", JSON.stringify(userCounts));
+    }
+
+
+
    const food = [
         {
             name: "Chicken Alfredo Pasta",
@@ -212,6 +223,8 @@ export function Cook(props) {
         );
     }
 
+    incrementRecipeCount();
+
     const randomRecipe =
         matchingRecipes[Math.floor(Math.random() * matchingRecipes.length)];
 
@@ -229,7 +242,7 @@ export function Cook(props) {
                 <br />
                 </div>
             );
-            }
+    }
 
   return (
     <main className="bg-light text-dark">
@@ -239,19 +252,24 @@ export function Cook(props) {
         <br /><br /><br />
 
         <div id="main-div">
+
             <div id="left-div" className="container-fluid">
-                <div className='playerName'>{username}</div>
-                <Button variant='secondary' onClick={() => logout()}>Logout</Button>
-                <br />
-                <br />
-                <br />
+
                 <WhatsCookin />
-                
+
             </div>
 
             {recipeDisplay || getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))}
 
                 <div id="right-div" className="container-fluid">
+
+                <div className="user-bar" align="center">
+                    <div className='playerName'>{username}</div>
+                    <Button className="btn btn-dark shadow" variant='secondary' onClick={() => logout()}>Logout</Button>
+                </div>
+
+                <br /><br /><br /><br />
+
                 <h2>Ingredients</h2>
                 <IngredientsForm />
                 <br />
