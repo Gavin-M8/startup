@@ -11,11 +11,17 @@ export function Home() {
     { text: "To eat is a necessity, but to cook is an art.", author: "Unknown" },
   ];
 
-  const [quote, setQuote] = useState({ text: "", author: "" });
+  const [quote, setQuote] = useState('Loading...');
+  const [author, setAuthor] = useState('unkown');
 
-   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    setQuote(quotes[randomIndex]);
+  React.useEffect(() => {
+    fetch('https://zenquotes.io')
+      .then((response) => response.json())
+      .then((data) => {
+        setQuote(data.q);
+        setAuthor(data.a);
+      })
+      .catch();
   }, []);
     
   return (
@@ -32,9 +38,9 @@ export function Home() {
                 <img className="shadow" src="/lechef.png" alt="chef" border="1"/>
             </div>
 
-            <h4 align="center">"{quote.text}"</h4>
+            <h4 align="center">"{quote}"</h4>
             <br />
-            <h5 align="center">- {quote.author}</h5>
+            <h5 align="center">- {author}</h5>
 
         </div>
     </main>
