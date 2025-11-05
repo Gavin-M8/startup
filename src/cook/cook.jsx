@@ -21,12 +21,26 @@ export function Cook(props) {
     }
 
 
-    function incrementRecipeCount() {
+    async function incrementRecipeCount() {
         const username = localStorage.getItem("userName");
         if (!username) return;
-        const userCounts = JSON.parse(localStorage.getItem("userRecipeCounts")) || {};
-        userCounts[username] = (userCounts[username] || 0) + 1;
-        localStorage.setItem("userRecipeCounts", JSON.stringify(userCounts));
+        
+        try {
+            const response = await fetch('/api/increment', {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update recipe count')
+            }
+
+            const data = await response.json();
+
+            localStorage.setItem('recipeCount', data.recipeCount);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
 

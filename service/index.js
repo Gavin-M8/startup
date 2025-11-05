@@ -8,8 +8,7 @@ const cors = require('cors');
 const authCookieName = 'token';
 
 // lists to store data
-let users = [];
-let numRecipes = [];
+let users = {};
 
 // set backend port to 4000
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -48,7 +47,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     const user = await createUser(req.body.email, req.body.password);
 
     setAuthCookie(res, user.token);
-    res.send({ email: user.email });
+    res.send({ email: user.email, recipeCount: user.recipeCount});
   }
 });
 
@@ -59,7 +58,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
       setAuthCookie(res, user.token);
-      res.send({ email: user.email });
+      res.send({ email: user.email, recipeCount: user.recipeCount });
       return;
     }
   }
@@ -86,6 +85,17 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
+// Increment Recipe Count
+apiRouter.post('/increment', verifyAuth, async (req, res) => {
+    const user = await findUser('token', req.cookies[authCookieName]);
+    if (user) {
+        user.recipeCount += 1;
+        res.send({ recipeCount: user.recipeCount});
+    } else {
+        res.status(401).send({ msg: 'Unauthorized'});
+    }
+});
+
 // Default error handler
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
@@ -103,8 +113,9 @@ async function createUser(email, password) {
     email: email,
     password: passwordHash,
     token: uuid.v4(),
+    recipeCount: 0
   };
-  users.push(user);
+  users[email] = user;
 
   return user;
 }
@@ -112,7 +123,15 @@ async function createUser(email, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  return users.find((u) => u[field] === value);
+  if (field === 'email') {
+    return users[value] || null;
+  }
+
+  if (field === 'token') {
+    return Object.values(users).find(u => u.token === value) || null;
+  }
+  
+  return null;
 }
 
 // setAuthCookie in the HTTP response
