@@ -15,7 +15,7 @@ export function Home() {
   const [author, setAuthor] = useState('unknown');
 
   React.useEffect(() => {
-    fetch('https://zenquotes.io')
+    fetch('https://zenquotes.io/api/random')
       .then((response) => response.json())
       .then((data) => {
         setQuote(data.q);
