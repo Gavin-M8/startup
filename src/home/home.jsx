@@ -12,7 +12,7 @@ export function Home() {
   ];
 
   const [quote, setQuote] = useState('Loading...');
-  const [author, setAuthor] = useState('unkown');
+  const [author, setAuthor] = useState('unknown');
 
   React.useEffect(() => {
     fetch('https://zenquotes.io')
@@ -38,7 +38,7 @@ export function Home() {
                 <img className="shadow" src="/lechef.png" alt="chef" border="1"/>
             </div>
 
-            <h4 align="center">"{quote}"</h4>
+            <h4 align="center">{quote}</h4>
             <br />
             <h5 align="center">- {author}</h5>
 
