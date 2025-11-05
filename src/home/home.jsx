@@ -14,14 +14,16 @@ export function Home() {
   const [quote, setQuote] = useState('Loading...');
   const [author, setAuthor] = useState('unknown');
 
-  React.useEffect(() => {
-    fetch('https://zenquotes.io/api/random')
+  useEffect(() => {
+    fetch('/api/quote')
       .then((response) => response.json())
       .then((data) => {
-        setQuote(data.q);
-        setAuthor(data.a);
+        setQuote(data[0].q);
+        setAuthor(data[0].a);  
       })
-      .catch();
+      .catch((error) => {
+      console.error('Error fetching quote:', error);
+      });
   }, []);
     
   return (

@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const cors = require('cors');
 
 const authCookieName = 'token';
 
@@ -12,6 +13,8 @@ let numRecipes = [];
 
 // set backend port to 4000
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
+
+app.use(cors());
 
 // set up express
 app.use(express.json());
@@ -24,6 +27,18 @@ var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // endpoints
+
+// Quote request
+app.get('/api/quote', async (req, res) => {
+  try {
+    const response = await fetch('https://zenquotes.io/api/random');
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching from ZenQuotes:', error);
+    res.status(500).json({ error: 'Failed to fetch quote' });
+  }
+});
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
