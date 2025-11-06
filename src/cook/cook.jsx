@@ -28,7 +28,6 @@ export function Cook(props) {
         try {
             const response = await fetch('/api/increment', {
                 method: 'POST',
-                credentials: 'include'
             });
 
             if (!response.ok) {
@@ -268,7 +267,22 @@ export function Cook(props) {
 
             </div>
 
-            {recipeDisplay || getRandomRecipe(Object.keys(selectedIngredients).filter(ing => selectedIngredients[ing]))}
+            {recipeDisplay ? (
+                recipeDisplay
+                ) : (
+                <div id="center-div" className="container-fluid text-center">
+                    <h2>Choose Some Ingredients</h2>
+                    <br />
+                    <img
+                    src="/lechef.png"
+                    alt="placeholder"
+                    className="shadow"
+                    style={{ border: "1px solid black" }}
+                    />
+                    <br /><br />
+                    <h5>Select more ingredients to generate a recipe!</h5>
+                </div>
+            )}
 
                 <div id="right-div" className="container-fluid">
 
