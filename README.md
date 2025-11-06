@@ -109,12 +109,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - I set up Express
+- [x] **Static middleware for frontend** - I used Express static middleware under the set up express portion of index.js
+- [x] **Calls to third party endpoints** - I made a call to a third party quote service called zen quotes from home.jsx to an endpoint in index.jsx
+- [x] **Backend service endpoints** - I added endpoints for incrementing recipe counts, logging in and out, and getting quotes
+- [x] **Frontend calls service endpoints** - home.jsx calls the endpoint to get quotes
+- [x] **Supports registration, login, logout, and restricted endpoint** - I implemented this in authenticated.jsx, unauthenticated.jsx, and index.js
 
 
 ## 🚀 DB deliverable
