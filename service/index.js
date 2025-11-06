@@ -90,7 +90,6 @@ apiRouter.post('/increment', async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
         user.recipeCount += 1;
-        console.log(user.recipeCount);
         res.send({ recipeCount: user.recipeCount});
     } else {
         res.status(401).send({ msg: 'Unauthorized'});
