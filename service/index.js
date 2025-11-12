@@ -94,6 +94,7 @@ apiRouter.post('/increment', verifyAuth, async (req, res) => {
     if (user) {
         user.recipeCount += 1;
         res.send({ recipeCount: user.recipeCount});
+        DB.updateRecipeCount(user);
     } else {
         res.status(401).send({ msg: 'Unauthorized'});
     }

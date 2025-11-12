@@ -33,6 +33,12 @@ async function updateUser(user) {
   await userCollection.updateOne({ email: user.email }, { $set: user });
 }
 
+async function updateRecipeCount(user) {
+  await userCollection.updateOne(
+    { email: user.email },{ $set: { recipeCount: user.recipeCount } });
+}
+
+
 
 
 module.exports = {
@@ -40,4 +46,5 @@ module.exports = {
   getUserByToken,
   addUser,
   updateUser,
+  updateRecipeCount,
 };
