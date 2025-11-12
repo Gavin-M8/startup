@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 const cors = require('cors');
 
 const authCookieName = 'token';
@@ -57,6 +58,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ email: user.email, recipeCount: user.recipeCount });
       return;
@@ -70,6 +72,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -113,9 +116,9 @@ async function createUser(email, password) {
     email: email,
     password: passwordHash,
     token: uuid.v4(),
-    recipeCount: 0
+    recipeCount: 0,
   };
-  users[email] = user;
+  await DB.addUser(user);
 
   return user;
 }
@@ -123,15 +126,10 @@ async function createUser(email, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  if (field === 'email') {
-    return users[value] || null;
-  }
-
   if (field === 'token') {
-    return Object.values(users).find(u => u.token === value) || null;
+    return DB.getUserByToken(value);
   }
-  
-  return null;
+  return DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response
