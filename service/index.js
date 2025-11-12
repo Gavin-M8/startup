@@ -89,7 +89,7 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // Increment Recipe Count
-apiRouter.post('/increment', async (req, res) => {
+apiRouter.post('/increment', verifyAuth, async (req, res) => {
     const user = await findUser('token', req.cookies[authCookieName]);
     if (user) {
         user.recipeCount += 1;
