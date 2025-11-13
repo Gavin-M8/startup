@@ -72,7 +72,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
-    DB.updateUser(user);
+    await DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -94,7 +94,7 @@ apiRouter.post('/increment', verifyAuth, async (req, res) => {
     if (user) {
         user.recipeCount += 1;
         res.send({ recipeCount: user.recipeCount});
-        DB.updateRecipeCount(user);
+        await DB.updateRecipeCount(user);
     } else {
         res.status(401).send({ msg: 'Unauthorized'});
     }
@@ -128,9 +128,9 @@ async function findUser(field, value) {
   if (!value) return null;
 
   if (field === 'token') {
-    return DB.getUserByToken(value);
+    return await DB.getUserByToken(value);
   }
-  return DB.getUser(value);
+  return await DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response
