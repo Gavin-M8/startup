@@ -36,7 +36,7 @@ class EventNotification {
 
     broadcastEvent(from, type, value) {
         const event = new EventMessage(from, type, value);
-        this.coket.send(JSON.stringify(event));
+        this.socket.send(JSON.stringify(event));
     }
 
     addHandler(handler) {
@@ -58,4 +58,6 @@ class EventNotification {
     }
 }
 
-export { CookEvent, EventNotification };
+const eventNotification = new EventNotification();
+
+export { CookEvent, eventNotification };

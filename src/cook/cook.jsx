@@ -5,7 +5,7 @@ import { AuthState } from '../login/authState';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./cook.css";
-import { CookEvent, EventNotification } from './notification.js';
+import { CookEvent, eventNotification } from './notification.js';
 
 
 export function Cook(props) {
@@ -95,15 +95,15 @@ export function Cook(props) {
         const [events, setEvent] = useState([]);
 
         useEffect(() => {
-            EventNotification.addHandler(handleCookEvent);
+            eventNotification.addHandler(handleCookEvent);
 
             return () => {
-                EventNotification.removeHandler(handleCookEvent);
+                eventNotification.removeHandler(handleCookEvent);
             };
         });
 
         function handleCookEvent(event) {
-            setEvent([...events, event]);
+            setEvent(prev => [...prev, event]);
         }
 
         function createNotificationArray() {
