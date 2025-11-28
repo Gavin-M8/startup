@@ -89,103 +89,77 @@ export function Cook(props) {
     const [recipeDisplay, setRecipeDisplay] = useState(null);
 
 
-    function WhatsCookin(props) {
-        const userName = props.userName;
-
-        const [events, setEvent] = useState([]);
+    function WhatsCookin() {
+        const [users, setUsers] = useState([]);
 
         useEffect(() => {
+            function handleCookEvent(event) {
+                let activity = "did something";
+
+                if (event.type === CookEvent.Start) {
+                    activity = "just entered the kitchen";
+                } 
+                else if (event.type === CookEvent.End) {
+                    activity = "just left the kitchen";
+                } 
+                else if (event.type === CookEvent.System) {
+                    activity = event.value?.msg || "system message";
+                }
+
+                const newUser = {
+                    id: Date.now() + Math.random(),
+                    name: event.from,
+                    recipes: event.value?.recipeCount ?? 0,
+                    activity,
+                };
+
+                // Add to feed (keep last 5 only)
+                setUsers(prev => {
+                    const updated = [...prev, newUser];
+                    return updated.slice(-5);
+                });
+
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    setUsers(prev => prev.filter(u => u.id !== newUser.id));
+                }, 5000);
+            }
+
             eventNotification.addHandler(handleCookEvent);
 
             return () => {
                 eventNotification.removeHandler(handleCookEvent);
             };
-        });
+        }, []);
 
-        function handleCookEvent(event) {
-            setEvent(prev => [...prev, event]);
-        }
-
-        function createNotificationArray() {
-            const notificationArray = [];
-            for (const [i, event] of events.entries()) {
-                let message = 'unkown';
-                if (event.type === CookEvent.End) {
-                    message = `left the kitchen`
-                } else if (event.type === CookEvent.Start) {
-                    message =  `entered the kitchen`;
-                } else if (event.type === CookEvent.System) {
-                    message = event.value.msg;
-                }
-
-                notificationArray.push(
-                    <div key={i} className='event'>
-                        <span className={'player-event'}>{event.from.split('@')[0]}</span>
-                        {message}
-                    </div>
-                );
-            } 
-            return notificationArray;
-        }
-        
         return (
-            <div className='players'>
-                <span className='player-name'>{userName}</span>
-                <div id='player-notifications'>{createNotificationArray()}</div>
+            <div>
+                <h2>What's Cookin'</h2>
+                <hr />
+                <div className="user-list">
+                    <AnimatePresence>
+                        {users.map(user => (
+                            <motion.div
+                                key={user.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.5 }}
+                                className="shadow-sm p-2 mb-3 rounded bg-white border"
+                            >
+                                <strong>{user.name}</strong> — <em>{user.activity}</em>
+                                <br />
+                                <span style={{ color: "#666" }}>
+                                    Recipes Generated: {user.recipes}
+                                </span>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </div>
             </div>
-        )
+        );
+    }
 
-        // const [users, setUsers] = useState([]);
-
-        // const randomUsers = ["BillyBob", "CoolPerson225", "ChefMaster", "Foodie42", "EggLover", "NoodleKing", "SauceBoss"];
-        // const activities = ["just generated a recipe!", "just logged in", "just logged out"];
-
-        // useEffect(() => {
-        //     const interval = setInterval(() => {
-        //     const name = randomUsers[Math.floor(Math.random() * randomUsers.length)];
-        //     const recipes = Math.floor(Math.random() * 2000) + 1;
-        //     const activity = activities[Math.floor(Math.random() * activities.length)];
-        //     const newUser = { id: Date.now(), name, recipes, activity };
-
-        //     setUsers(prev => {
-        //         const updated = [...prev, newUser];
-        //         return updated.slice(-5); // keep only the 5 most recent
-        //     });
-
-        //     // Remove this specific user after 5 seconds
-        //     setTimeout(() => {
-        //         setUsers(prev => prev.filter(u => u.id !== newUser.id));
-        //     }, 5000);
-        //     }, 3000); // new user every 3 seconds
-
-        //     return () => clearInterval(interval);
-        // }, []);
-
-        // return (
-        //     <div>
-        //     <h2>What's Cookin'</h2>
-        //     <hr />
-        //     <div className="user-list">
-        //         <AnimatePresence>
-        //         {users.map(user => (
-        //             <motion.div
-        //             key={user.id}
-        //             initial={{ opacity: 0, y: 20 }}
-        //             animate={{ opacity: 1, y: 0 }}
-        //             exit={{ opacity: 0, y: -20 }}
-        //             transition={{ duration: 0.5 }}
-        //             className="shadow-sm p-2 mb-3 rounded bg-white border"
-        //             >
-        //             <strong>{user.name}</strong> — <em>{user.activity}</em>
-        //             <br />
-        //             <span style={{ color: "#666" }}>Recipes Generated: {user.recipes}</span>
-        //             </motion.div>
-        //         ))}
-        //         </AnimatePresence>
-        //     </div>
-        //     </div>
-        // );
-        }
 
 
      function IngredientsForm() {
