@@ -33,7 +33,6 @@ export function Cook(props) {
     }, [username]);
 
 
-
     function logout() {
         localStorage.removeItem("userName");
         props.setAuthState(AuthState.Unauthenticated);
@@ -62,7 +61,6 @@ export function Cook(props) {
             console.error(err);
         }
     }
-
 
 
    const food = [
@@ -98,6 +96,7 @@ export function Cook(props) {
         }
         ];
 
+
     const [selectedIngredients, setSelectedIngredients] = useState({
         flour: false,
         eggs: false,
@@ -106,7 +105,9 @@ export function Cook(props) {
         milk: false,
     });
 
+
     const [recipeDisplay, setRecipeDisplay] = useState(null);
+
 
      function IngredientsForm() {
         
@@ -173,6 +174,7 @@ export function Cook(props) {
         );
         }
 
+        
   function getRandomRecipe(selectedIngredients) {
     const matchingRecipes = food.filter(recipe =>
         recipe.ingredients.every(ing => selectedIngredients.includes(ing))
@@ -199,11 +201,8 @@ export function Cook(props) {
 
     incrementRecipeCount();
 
-
    const socket = socketRef.current;
-
     if (!socket) {
-   
     } else {
     
     socket.send(JSON.stringify({
@@ -213,10 +212,7 @@ export function Cook(props) {
         activity: "generated a recipe!"
         }
     }));
-
     }
-
-
 
     const randomRecipe =
         matchingRecipes[Math.floor(Math.random() * matchingRecipes.length)];
@@ -247,10 +243,7 @@ export function Cook(props) {
         <div id="main-div">
 
             <div id="left-div" className="container-fluid">
-
                 <WhatsCookin username={username} socketRef={socketRef} />
-
-
             </div>
 
             {recipeDisplay ? (
@@ -285,16 +278,13 @@ export function Cook(props) {
                 <button
                 className="btn btn-dark shadow"
                 onClick={() => {
-                    // Filter selected ingredients
                     const selected = Object.keys(selectedIngredients).filter(
                     (ing) => selectedIngredients[ing]
                     );
 
-                    // Generate a recipe
                     const recipe = getRandomRecipe(selected);
                     setRecipeDisplay(recipe);
 
-                    // Play the ding only when a recipe is generated
                     const audio = new Audio("/sound-ding.mp3");
                     audio.play();
                 }}
@@ -302,13 +292,6 @@ export function Cook(props) {
                 Generate Recipe
                 </button>
                 <br />
-                {/* <h2 id="saved-recipes">Saved Recipes</h2>
-                <ul>
-                    <li>Ice Cream</li>
-                    <li>Fried Chicken</li>
-                    <li>Apple Pie</li>
-                    <li>Artisan Bread</li>
-                </ul> */}
                 </div>
         </div>
     </main>
