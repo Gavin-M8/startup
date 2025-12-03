@@ -11,7 +11,27 @@ export function Cook(props) {
 
     const username = localStorage.getItem("userName");
     const navigate = useNavigate();
+
     const socketRef = useRef(null);
+
+    useEffect(() => {
+    if (socketRef.current) return;
+
+    const socket = new WebSocket("ws://localhost:4000");
+    socketRef.current = socket;
+
+    socket.onopen = () => {
+        socket.send(JSON.stringify({
+        type: "new_user",
+        value: username
+        }));
+    };
+
+    return () => {
+        socket.close();
+    };
+    }, [username]);
+
 
 
     function logout() {
@@ -179,15 +199,24 @@ export function Cook(props) {
 
     incrementRecipeCount();
 
-    if (socketRef.current?.readyState === WebSocket.OPEN) {
-        socketRef.current.send(JSON.stringify({
-            type: "activity",
-            value: {
-            username,
-            activity: "generated a recipe!"
-            }
-        }));
+
+   const socket = socketRef.current;
+
+    if (!socket) {
+   
+    } else {
+    
+    socket.send(JSON.stringify({
+        type: "activity",
+        value: {
+        username,
+        activity: "generated a recipe!"
+        }
+    }));
+
     }
+
+
 
     const randomRecipe =
         matchingRecipes[Math.floor(Math.random() * matchingRecipes.length)];
