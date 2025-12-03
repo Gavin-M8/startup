@@ -128,8 +128,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - index.js backend is upgraded to websocket and listens for connection through peerProxy.js.
+- [x] **Frontend makes WebSocket connection** - Frontend makes websocket connection in cook.jsx through WhatsCookin component.
+- [x] **Data sent over WebSocket connection** - Data, including username and activity type, is sent over websocket (see peerProxy).
+- [x] **WebSocket data displayed** - Websocket data is displayed on cook page through the WhatsCookin component when other users connect, generate a recipe, and close a connection.
+- [x] **Application is fully functional** - The application works as intended and is fully functional.
