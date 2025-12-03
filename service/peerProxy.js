@@ -6,13 +6,16 @@ function peerProxy(httpServer) {
     socketServer.on('connection', (socket) => {
 
         socket.isAlive = true;
+        console.log("websocket connected");
 
         socket.on('message', function message(data) {
+            const message = data.toString();
             socketServer.clients.forEach((client) => {
                 if (client !== socket && client.readyState === WebSocket.OPEN) {
-                    client.send(data);
+                    client.send(message);
                 }
             });
+            console.log(message);
         });
 
         socket.on('pong', () => {

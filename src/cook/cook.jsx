@@ -5,7 +5,7 @@ import { AuthState } from '../login/authState';
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./cook.css";
-import { CookEvent, eventNotification } from './notification.js';
+// import { CookEvent, EventNotification } from './notification.js';
 
 
 export function Cook(props) {
@@ -90,77 +90,71 @@ export function Cook(props) {
 
 
     function WhatsCookin() {
-        const [users, setUsers] = useState([]);
+        const [otherUsers, setOtherUsers] = useState([]);
 
         useEffect(() => {
-            function handleCookEvent(event) {
-                let activity = "did something";
+            console.log("Inside WhatsCookin, connecting WebSocket");
 
-                if (event.type === CookEvent.Start) {
-                    activity = "just entered the kitchen";
-                } 
-                else if (event.type === CookEvent.End) {
-                    activity = "just left the kitchen";
-                } 
-                else if (event.type === CookEvent.System) {
-                    activity = event.value?.msg || "system message";
-                }
+            const socket = new WebSocket('ws://localhost:4000');
 
-                const newUser = {
-                    id: Date.now() + Math.random(),
-                    name: event.from,
-                    recipes: event.value?.recipeCount ?? 0,
-                    activity,
-                };
+            socket.onopen = () => {
+            console.log("connected from the frontend");
 
-                // Add to feed (keep last 5 only)
-                setUsers(prev => {
-                    const updated = [...prev, newUser];
-                    return updated.slice(-5);
+            socket.send(
+                JSON.stringify({
+                type: "new_user",
+                value: username
+                })
+            );
+            };
+
+            socket.onmessage = (event) => {
+            console.log("RAW MESSAGE:", event.data);
+
+            const message = JSON.parse(event.data);
+
+            if (message.type === "new_user") {
+                const newUserName = message.value || "Anonymous";
+
+                setOtherUsers((prev) => {
+                if (prev.includes(newUserName)) return prev;
+                return [...prev, newUserName];
                 });
-
-                // Auto-remove after 5 seconds
-                setTimeout(() => {
-                    setUsers(prev => prev.filter(u => u.id !== newUser.id));
-                }, 5000);
             }
+            };
 
-            eventNotification.addHandler(handleCookEvent);
+            socket.onerror = (err) => {
+            console.error("WebSocket error:", err);
+            };
 
             return () => {
-                eventNotification.removeHandler(handleCookEvent);
+            socket.close();
             };
         }, []);
 
         return (
             <div>
-                <h2>What's Cookin'</h2>
-                <hr />
-                <div className="user-list">
-                    <AnimatePresence>
-                        {users.map(user => (
-                            <motion.div
-                                key={user.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -20 }}
-                                transition={{ duration: 0.5 }}
-                                className="shadow-sm p-2 mb-3 rounded bg-white border"
-                            >
-                                <strong>{user.name}</strong> — <em>{user.activity}</em>
-                                <br />
-                                <span style={{ color: "#666" }}>
-                                    Recipes Generated: {user.recipes}
-                                </span>
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </div>
+            <h2>What's Cookin'</h2>
+            <hr />
+            <div className="user-list">
+                <AnimatePresence>
+                {otherUsers.map((user) => (
+                    <motion.div
+                    key={user}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="shadow-sm p-2 mb-3 rounded bg-white border"
+                    >
+                    <strong>{user}</strong> — <em>is here</em>
+                    </motion.div>
+                ))}
+                </AnimatePresence>
+            </div>
             </div>
         );
     }
-
-
 
      function IngredientsForm() {
         
