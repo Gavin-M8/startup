@@ -2,16 +2,16 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import { AuthState } from '../login/authState';
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import WhatsCookin from "./whatsCookin";
 import "./cook.css";
-// import { CookEvent, EventNotification } from './notification.js';
 
 
 export function Cook(props) {
 
     const username = localStorage.getItem("userName");
     const navigate = useNavigate();
+    const socketRef = useRef(null);
 
 
     function logout() {
@@ -87,99 +87,6 @@ export function Cook(props) {
     });
 
     const [recipeDisplay, setRecipeDisplay] = useState(null);
-
-
-    function WhatsCookin() {
-        const [otherUsers, setOtherUsers] = useState([]);
-        const [activity, setActivity] = useState("burnt the food");
-
-        useEffect(() => {
-            console.log("Inside WhatsCookin, connecting WebSocket");
-
-            const socket = new WebSocket('ws://localhost:4000');
-
-            socket.onopen = () => {
-            console.log("connected from the frontend");
-
-            socket.send(
-                JSON.stringify({
-                type: "new_user",
-                value: username
-                })
-            );
-            };
-
-            // socket.onmessage = (event) => {
-            // console.log("RAW MESSAGE:", event.data);
-
-            // const message = JSON.parse(event.data);
-
-            // if (message.type === "new_user") {
-            //     const newUserName = message.value || "Anonymous";
-
-            //     setOtherUsers((prev) => {
-            //     if (prev.includes(newUserName)) return prev;
-            //     return [...prev, newUserName];
-            //     });
-            // }
-            // };
-
-            socket.onmessage = (event) => {
-                const message = JSON.parse(event.data);
-
-                if (message.type === "new_user") {
-                    const newUserName = message.value || "Anonymous";
-                    setActivity("entered the kitchen!");
-
-                    setOtherUsers((prev) => {
-                    if (prev.includes(newUserName)) return prev;
-                    return [...prev, newUserName];
-                    });
-                }
-
-                if (message.type === "user_left") {
-                    const leftUser = message.value;
-                    setActivity("left the kitchen.");
-
-                    setOtherUsers((prev) =>
-                    prev.filter((user) => user !== leftUser)
-                    );
-                }
-            };
-
-
-            socket.onerror = (err) => {
-            console.error("WebSocket error:", err);
-            };
-
-            return () => {
-            socket.close();
-            };
-        }, []);
-
-        return (
-            <div>
-            <h2>What's Cookin'</h2>
-            <hr />
-            <div className="user-list">
-                <AnimatePresence>
-                {otherUsers.map((user) => (
-                    <motion.div
-                    key={user}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className="shadow-sm p-2 mb-3 rounded bg-white border"
-                    >
-                    <strong>{user}</strong> <em>{activity}</em>
-                    </motion.div>
-                ))}
-                </AnimatePresence>
-            </div>
-            </div>
-        );
-    }
 
      function IngredientsForm() {
         
@@ -272,6 +179,16 @@ export function Cook(props) {
 
     incrementRecipeCount();
 
+    if (socketRef.current?.readyState === WebSocket.OPEN) {
+        socketRef.current.send(JSON.stringify({
+            type: "activity",
+            value: {
+            username,
+            activity: "generated a recipe!"
+            }
+        }));
+    }
+
     const randomRecipe =
         matchingRecipes[Math.floor(Math.random() * matchingRecipes.length)];
 
@@ -302,7 +219,8 @@ export function Cook(props) {
 
             <div id="left-div" className="container-fluid">
 
-                <WhatsCookin userName={props.userName}/>
+                <WhatsCookin username={username} socketRef={socketRef} />
+
 
             </div>
 

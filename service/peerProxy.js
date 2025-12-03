@@ -42,7 +42,6 @@ function peerProxy(httpServer) {
 
   socketServer.on('connection', (socket) => {
     socket.isAlive = true;
-
     console.log("websocket connected");
 
     socket.on('message', (data) => {
@@ -51,22 +50,24 @@ function peerProxy(httpServer) {
       if (message.type === "new_user") {
         socket.username = message.value;
 
-        broadcast(socketServer, {
+        if (message.type === "activity") {
+            broadcastExceptSender(socketServer, socket, message);
+        }
+
+        broadcastExceptSender(socketServer, socket, {
           type: "new_user",
           value: socket.username
         });
 
         return;
       }
-
-      // handle other message types here
     });
 
     socket.on('close', () => {
       if (socket.username) {
         console.log(`${socket.username} disconnected`);
 
-        broadcast(socketServer, {
+        broadcastExceptSender(socketServer, socket, {
           type: "user_left",
           value: socket.username
         });
@@ -88,11 +89,14 @@ function peerProxy(httpServer) {
   }, 10000);
 }
 
-function broadcast(server, message) {
+function broadcastExceptSender(server, senderSocket, message) {
   const json = JSON.stringify(message);
 
   server.clients.forEach((client) => {
-    if (client.readyState === WebSocket.OPEN) {
+    if (
+      client.readyState === WebSocket.OPEN &&
+      client !== senderSocket
+    ) {
       client.send(json);
     }
   });
