@@ -91,6 +91,7 @@ export function Cook(props) {
 
     function WhatsCookin() {
         const [otherUsers, setOtherUsers] = useState([]);
+        const [activity, setActivity] = useState("burnt the food");
 
         useEffect(() => {
             console.log("Inside WhatsCookin, connecting WebSocket");
@@ -108,20 +109,44 @@ export function Cook(props) {
             );
             };
 
+            // socket.onmessage = (event) => {
+            // console.log("RAW MESSAGE:", event.data);
+
+            // const message = JSON.parse(event.data);
+
+            // if (message.type === "new_user") {
+            //     const newUserName = message.value || "Anonymous";
+
+            //     setOtherUsers((prev) => {
+            //     if (prev.includes(newUserName)) return prev;
+            //     return [...prev, newUserName];
+            //     });
+            // }
+            // };
+
             socket.onmessage = (event) => {
-            console.log("RAW MESSAGE:", event.data);
+                const message = JSON.parse(event.data);
 
-            const message = JSON.parse(event.data);
+                if (message.type === "new_user") {
+                    const newUserName = message.value || "Anonymous";
+                    setActivity("entered the kitchen!");
 
-            if (message.type === "new_user") {
-                const newUserName = message.value || "Anonymous";
+                    setOtherUsers((prev) => {
+                    if (prev.includes(newUserName)) return prev;
+                    return [...prev, newUserName];
+                    });
+                }
 
-                setOtherUsers((prev) => {
-                if (prev.includes(newUserName)) return prev;
-                return [...prev, newUserName];
-                });
-            }
+                if (message.type === "user_left") {
+                    const leftUser = message.value;
+                    setActivity("left the kitchen.");
+
+                    setOtherUsers((prev) =>
+                    prev.filter((user) => user !== leftUser)
+                    );
+                }
             };
+
 
             socket.onerror = (err) => {
             console.error("WebSocket error:", err);
@@ -147,7 +172,7 @@ export function Cook(props) {
                     transition={{ duration: 0.5 }}
                     className="shadow-sm p-2 mb-3 rounded bg-white border"
                     >
-                    <strong>{user}</strong> — <em>is here</em>
+                    <strong>{user}</strong> <em>{activity}</em>
                     </motion.div>
                 ))}
                 </AnimatePresence>
