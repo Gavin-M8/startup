@@ -1,5 +1,623 @@
 # CS 260 Notes
 
+
+# Final Exam Notes
+
+### 1. Default Ports
+- **HTTP:** 80  
+- **HTTPS:** 443  
+- **SSH:** 22
+
+---
+
+### 2. HTTP Status Code Ranges
+- **300–399 (Redirection):** Not an error. Indicates the client must make another request (e.g., resource moved).  
+- **400–499 (Client Errors):** Client-side issues such as invalid request, unauthorized access, or missing resource.  
+- **500–599 (Server Errors):** Server failed to process a valid request due to internal problems.
+
+---
+
+### 3. Content-Type Header
+- Specifies the **media/MIME type** of the HTTP message body.
+- Tells the client how to **interpret** the data (e.g., `text/html`, `application/json`, `image/png`).
+- May include **charset** info (e.g., `charset=UTF-8`).
+- Ensures correct **parsing**, **rendering**, and **processing** by browsers and API clients.
+
+---
+
+### 4. Cookie Security Attributes
+
+**Secure Cookie**
+- Only sent over **HTTPS** (encrypted transport).
+- Prevents exposure of the cookie over insecure HTTP.
+- Mitigates risk of **man-in-the-middle** interception.
+
+**HttpOnly Cookie**
+- Cannot be accessed via **JavaScript** (`document.cookie` is blocked).
+- Helps prevent **XSS attacks** from stealing session cookies.
+- Still sent with HTTP requests as normal.
+
+**SameSite Cookie**
+- Controls whether the cookie is sent with **cross-site requests**.
+- Helps defend against **CSRF attacks**.
+- Values:
+  - **Strict:** Only sent for same-site navigation (never cross-site).
+  - **Lax:** Sent for top-level navigations (safe default for most apps).
+  - **None:** Sent on all cross-site requests, but **must** also have `Secure`.
+
+---
+
+### 5. Express Middleware Logging (General Notes)
+
+When an Express app receives a request such as:
+
+GET /api/document
+
+Middleware functions receive three main objects:
+- `req` (incoming request)
+- `res` (outgoing response)
+- `next` (callback to pass control)
+
+General behaviors you can expect in logging:
+
+1. **req.method**
+   - For a GET request:
+     - `console.log(req.method)` → `GET`
+
+2. **req.url or req.originalUrl**
+   - For a request to `/api/document`:
+     - `console.log(req.url)` → `/api/document`
+     - `console.log(req.originalUrl)` → `/api/document`
+
+3. **req.path**
+   - Logs the path without query string:
+     - `console.log(req.path)` → `/api/document`
+
+4. **req.query**
+   - For no query parameters:
+     - `console.log(req.query)` → `{}`
+
+5. **Order of Execution**
+   - Express runs middleware **top-down**.
+   - If multiple middleware functions log values, they will run in the order they are registered unless one ends the response early.
+
+6. **Common Logging Patterns**
+   - Many middleware log:
+     - HTTP method
+     - URL/path
+     - Timestamp
+     - Possibly headers: `req.headers`
+   - Example output a question might expect:
+     ```
+     GET /api/document
+     ```
+     or
+     ```
+     Method: GET
+     Path: /api/document
+     ```
+
+7. **If the middleware uses next()**
+   - The request continues to subsequent handlers.
+   - Additional logging in later middleware will also appear.
+
+8. **If the middleware does NOT call next()**
+   - Logging stops after that middleware.
+   - The response may hang unless `res.send()` or similar is called.
+
+---
+
+### 6. Fetch Return Value (General Express + Fetch Behavior)
+
+#### General Behavior of `fetch()`
+- `fetch(url)` always returns a **Promise** that resolves to a **Response object**, unless a network error occurs.
+- The *data* is not returned automatically—the caller must read it.
+
+#### Common Response Parsing Patterns
+1. **If the frontend uses `response.json()`**
+   - The returned value is a **Promise** resolving to a **parsed JavaScript object**.
+   - So the final result (after `await` or `.then`) is the JSON body of the Express response.
+   - Example:
+     ```js
+     const data = await fetch('/api').then(r => r.json());
+     // data is the actual JSON object sent by Express
+     ```
+
+2. **If the frontend uses `response.text()`**
+   - Returns a Promise resolving to a **string** containing the response body.
+   - Example:
+     ```js
+     const data = await fetch('/api').then(r => r.text());
+     ```
+
+3. **If the Express route uses `res.json({...})`**
+   - The fetch `.json()` will return that exact object.
+   - Example Express response:
+     ```js
+     res.json({ status: 'ok' });
+     ```
+     Fetch result:
+     ```js
+     { status: "ok" }
+     ```
+
+4. **If the Express route uses `res.send("hello")` or `res.sendStatus(...)`**
+   - Fetch `.text()` will return `"hello"`.
+   - `.json()` will fail unless the body is valid JSON.
+
+5. **If the route returns no body (e.g., `res.sendStatus(204)` or `res.end()`)**
+   - `response.text()` → `""` (empty string)
+   - `response.json()` → throws a JSON parse error
+
+6. **Status Codes**
+   - `fetch` does **not** reject on HTTP errors.
+   - You must check `response.ok` or `response.status`.
+   - Example:
+     ```js
+     const response = await fetch('/api');
+     response.ok === true for 2xx responses
+     ```
+
+7. **If the frontend returns the raw `fetch` call**
+   - The answer is: **a Promise resolving to a Response object**.
+
+8. **If the frontend uses `await fetch(...)`**
+   - The answer is: **a Response object**.
+
+---
+
+### 7. MongoDB Query: `{ name: "Mark" }`
+
+#### What the query does
+- This is a **standard equality match** in MongoDB.
+- It returns **all documents** in the collection where the field **name** exists and is **exactly equal to the string `"Mark"`**.
+
+#### Matching Rules
+- Matches documents such as:
+  ```js
+  { name: "Mark" }
+  { name: "Mark", age: 30 }
+  { id: 4, name: "Mark", admin: false }
+  ```
+
+- Does NOT match:
+  ``` js
+  { name: "mark" }        // case-sensitive
+  { name: "MARK" }
+  { firstName: "Mark" }   // field name does not match
+  { name: ["Mark"] }      // array equality rules differ
+  ```
+
+---
+
+### 8. How Should User Passwords Be Stored?
+
+- **Never store passwords in plain text.**
+- Use a **strong, slow, one-way hashing algorithm** designed for passwords:
+  - **bcrypt**
+  - **scrypt**
+  - **Argon2** (recommended)
+  - **PBKDF2**
+
+#### Requirements for secure password storage:
+- **Per-user salt:**  
+  - A random value added to each password before hashing.  
+  - Prevents rainbow-table attacks and makes hashes unique.
+
+- **Slow / cost-factor hashing:**  
+  - Hash function should be intentionally slow to make brute-forcing expensive.
+
+- **Never use fast hashes like SHA-1, SHA-256, MD5** for password storage.
+
+- **Do not attempt reversible encryption.**  
+  - Passwords should be unrecoverable; only verify them by hashing the provided input and comparing.
+
+#### Summary Rule
+- Store only: **salt + hashed password (using bcrypt/scrypt/Argon2/PBKDF2).**
+
+---
+
+### 9. WebSocket Message Logging (General Notes)
+
+#### General WebSocket Logging Behavior
+
+1. **Connection Open**
+   - If frontend contains: ws.onopen = () => console.log("opened")
+   - Console output: opened
+
+2. **Receiving Messages**
+   - Frontend: ws.onmessage = (event) => console.log(event.data)
+   - If backend sends: socket.send("hello")
+     - Console output: hello
+   - If backend sends JSON: socket.send(JSON.stringify({ type: "update", value: 3 }))
+     - Console output: {"type":"update","value":3}
+   - If frontend parses JSON: console.log(JSON.parse(event.data))
+     - Console output: { type: "update", value: 3 }
+
+3. **Broadcast Pattern**
+   - Backend broadcasts: wss.clients.forEach(c => c.send("new connection"))
+   - Console output: new connection
+
+4. **Echo Server Pattern**
+   - Backend echoes messages: socket.on("message", msg => socket.send(msg))
+   - Frontend sends: ws.send("test")
+   - Console output: test
+
+5. **Close Events**
+   - Frontend: ws.onclose = () => console.log("closed")
+   - Console output: closed
+
+6. **Error Events**
+   - Frontend: ws.onerror = err => console.log("error", err)
+   - Console output: error [object Event]
+
+---
+
+### 10. What Is the WebSocket Protocol Intended to Provide?
+
+- A **full-duplex**, **persistent**, **bi-directional** communication channel between client and server.
+- Allows the server to **push data to the client** without the client repeatedly polling.
+- Uses a single long-lived TCP connection instead of repeated HTTP requests.
+- Enables **real-time** applications such as chats, games, dashboards, live updates.
+- Performs an initial HTTP handshake, then upgrades the connection to the WebSocket protocol.
+
+---
+
+### 11. What Do These Acronyms Stand For?
+
+- **JSX** — JavaScript XML  
+- **JS** — JavaScript  
+- **AWS** — Amazon Web Services  
+- **NPM** — Node Package Manager  
+- **NVM** — Node Version Manager  
+
+---
+
+### 12. React Component Output (General Notes for Missing Context)
+
+#### General Rules for React Component Output
+
+1. **A React component returns JSX → JSX converts to HTML text content.**
+   - Whatever string, number, or JSX elements the component returns will appear in the body.
+
+2. **If the component returns a plain string**
+   - Example: return "Hello";
+   - Output: Hello
+
+3. **If the component returns a JSX element**
+   - Example: return `<h1>Hello</h1>`;
+   - Output (text content): `Hello` 
+     (HTML element itself will also appear, but “text content” refers to the inner text)
+
+4. **If props are used**
+   - Example: ```function MyComp({ name }) { return <p>Hello {name}</p>; }```
+   - With name = `"Gavin"`
+   - Output: `Hello Gavin`
+
+5. **If multiple elements are returned inside a fragment**
+   - Example: `return <>A B C</>;`
+   - Output: `A B C`
+
+6. **Expressions are evaluated**
+   - Example: `return <p>{1 + 2}</p>;`
+   - Output: `3`
+
+7. **Arrays render all items**
+   - Example: `return <>{["a", "b", "c"]}</>;`
+   - Output: `a b c` (React inserts the array items directly)
+
+8. **Boolean, null, undefined do NOT render text**
+   - Example: `{false}, {null}, {undefined}` → outputs nothing.
+
+9. **Conditional rendering**
+   - Example: `{condition ? "Yes" : "No"}`
+   - Output: whichever branch resolves to a string.
+
+10. **React removes extra whitespace**
+    - JSX: `<p>  a   b   c  </p>`
+    - Output: `a b c` (React normalizes whitespace)
+
+---
+
+### 13. Nested React Components Output (General Notes)
+
+#### General Rules
+
+1. **Parent renders child components**
+   - When a component returns another component:
+     - Example: `<App />` returns `<Header /> <Body />`
+     - React replaces `<Header />` and `<Body />` with whatever those components render.
+
+2. **Props are passed down**
+   - Child components can access props from their parent.
+   - Example: `<Greeting name="Gavin" />` → child can use `props.name` to render "Gavin".
+
+3. **Text content**
+   - Only strings and numbers in JSX generate visible text.
+   - JSX elements generate HTML elements; their text content is nested.
+
+4. **Fragments**
+   - `<></>` does not create a DOM node; its children render inline.
+
+5. **Arrays**
+   - Returning an array of elements renders all elements in order.
+
+6. **Conditional rendering**
+   - `{condition && <Child />}` only renders the child if the condition is truthy.
+
+7. **Component hierarchy**
+   - The final rendered HTML/text is the **flattened combination** of all components’ return values.
+   - React evaluates top-down:
+     - Parent calls child
+     - Child calls its children
+     - Text content is concatenated according to DOM structure.
+
+8. **Whitespace**
+   - React normalizes whitespace; multiple spaces collapse into one.
+
+#### Example Pattern
+
+```js
+function Child() {
+  return <p>Child text</p>;
+}
+
+function Parent() {
+  return (
+    <div>
+      <h1>Header</h1>
+      <Child />
+      Footer
+    </div>
+  );
+}
+```
+
+---
+
+### 14. React.useState Overview
+
+- `React.useState` is a **React Hook** that lets a functional component have **state**.
+- It returns a **pair**: `[stateValue, setStateFunction]`.
+
+Example:
+const [count, setCount] = React.useState(0);
+- `count` → current state value (initially `0`)
+- `setCount` → function to update the state
+
+Key Behaviors:
+1. **State persists across re-renders** – changing other props or parent renders does not reset the state.
+2. **Updating state triggers re-render** – calling `setCount(newValue)` causes the component to re-render with the updated state.
+3. **Initial state** – passed as an argument to `useState(initialValue)`.
+4. **Multiple state variables** – you can call `useState` multiple times for separate pieces of state.
+
+Example Usage:
+
+```js
+function Counter() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+- Clicking the button increments `count` and updates the displayed text.
+
+---
+
+### 15. What Are React Hooks Used For?
+
+- **React Hooks** let you use **state** and other React features in **functional components**, which previously required class components.
+  
+#### Main Purposes
+1. **State Management**
+   - `useState` lets functional components store and update local state.
+
+2. **Side Effects**
+   - `useEffect` runs code in response to lifecycle events (mount, update, unmount).
+
+3. **Accessing Context**
+   - `useContext` allows components to consume React Context values.
+
+4. **Memoization**
+   - `useMemo` and `useCallback` optimize performance by caching values and functions.
+
+5. **Custom Hooks**
+   - Combine multiple hooks into reusable logic for cleaner components.
+
+#### Benefits
+- Avoid class components while still having lifecycle methods and state.
+- Promote **code reuse** and cleaner, more modular components.
+- Make functional components fully capable of managing component logic.
+
+---
+
+### 16. What Do These React Hooks Do?
+
+**State Hook (`useState`)**
+- Lets a functional component **hold state**.
+- Returns `[stateValue, setStateFunction]`.
+- Updating state with the setter triggers a **re-render** with the new value.
+
+**Context Hook (`useContext`)**
+- Lets a component **read and subscribe** to a React Context.
+- Accepts a context object (from `React.createContext`) and returns the current context value.
+- Simplifies passing data deeply without prop drilling.
+
+**Ref Hook (`useRef`)**
+- Provides a **mutable container** that persists across renders.
+- Common uses:
+  - Accessing DOM elements (`ref.current`).
+  - Storing mutable values that **do not trigger re-renders** when changed.
+
+**Effect Hook (`useEffect`)**
+- Lets a component perform **side effects** after render.
+- Runs code in response to changes in dependencies or on mount/unmount.
+- Typical uses:
+  - Data fetching
+  - Subscriptions
+  - DOM updates
+
+**Performance Hooks (`useMemo`, `useCallback`, `useTransition`, etc.)**
+- **`useMemo`**: Caches the result of a computation to avoid expensive recalculation on every render.
+- **`useCallback`**: Caches a function instance so it doesn’t change between renders unless dependencies change.
+- **Other performance helpers** (e.g., `useDeferredValue`, `useTransition`):
+  - Manage rendering priority and improve responsiveness in complex UIs.
+
+
+These hooks let functional components handle state, side effects, context values, DOM references, and performance optimizations without using class components.
+
+---
+
+### 17. React Router (General Notes)
+
+#### General Rules About React Router
+
+1. **`BrowserRouter` vs `HashRouter`**
+   - `BrowserRouter` uses HTML5 history API (`pushState`) for clean URLs.
+   - `HashRouter` uses URL hashes (`/#/path`) and works without server configuration.
+
+2. **`Routes` and `Route`**
+   - `Route` defines a path and component to render.
+   - `Routes` replaces `Switch` in React Router v6.
+   - Only the first matching route renders (unless `index` or `*` used).
+
+3. **`Link` and `NavLink`**
+   - `<Link to="/path">` navigates **without reloading the page**.
+   - `<NavLink>` adds an active class when the route matches.
+
+4. **Route Matching**
+   - Paths can include:
+     - Static paths (`/home`)
+     - Dynamic segments (`/user/:id`)
+     - Wildcards (`*`) for 404s
+   - React Router v6 matches **exactly by default**, not partially.
+
+5. **Nested Routes**
+   - Child `<Route>` components render **inside parent route’s element**.
+   - `Outlet` is required in parent to display children.
+
+6. **Redirection**
+   - `<Navigate to="/newpath" />` redirects immediately.
+
+7. **Hooks**
+   - `useParams()` → returns dynamic URL parameters.
+   - `useNavigate()` → programmatic navigation.
+   - `useLocation()` → returns current URL/location object.
+
+#### Shortcut
+- Statements about React Router that are true usually include:
+  - Routes render the correct component based on URL.
+  - Links change the URL **without page reload**.
+  - Dynamic segments populate parameters via `useParams`.
+  - Nested routes require `Outlet` to render children.
+
+---
+
+### 18. What Does the package.json File Do?
+
+- **Defines a Node.js project** and its metadata.
+- **Key purposes:**
+  1. **Project metadata** – name, version, description, author, license.
+  2. **Dependencies** – lists packages your project requires:
+     - `"dependencies"` → needed for production.
+     - `"devDependencies"` → needed for development/testing only.
+  3. **Scripts** – custom commands you can run via `npm run <script>` (e.g., `start`, `test`, `build`).
+  4. **Engine and environment info** – Node.js version, platform requirements.
+  5. **Configuration for tools** – e.g., ESLint, Babel, Jest.
+- Acts as the **central manifest** for package managers like **npm** or **yarn**.
+
+---
+
+### 19. What Does the fetch Function Do?
+
+- `fetch()` is a **browser API** (also available in Node via libraries) for making **HTTP requests**.
+- Returns a **Promise** that resolves to a **Response object**.
+
+Key Behaviors:
+1. **Basic usage**  
+   fetch(url)
+     .then(response => response.json())
+     .then(data => console.log(data));  
+   - `response.json()` parses JSON, `response.text()` parses plain text.
+
+2. **Supports HTTP methods**  
+   GET (default), POST, PUT, DELETE, etc.  
+   Example: fetch(url, { method: "POST", body: JSON.stringify(data) });
+
+3. **Headers and options**  
+   Can set headers and credentials:  
+   - headers: { "Content-Type": "application/json" }  
+   - credentials: "include" for cookies
+
+4. **Error handling**  
+   - fetch() rejects only on network errors.  
+   - Must check `response.ok` or `response.status` for HTTP errors.
+
+5. **Asynchronous**  
+   Works with async/await:  
+   const response = await fetch(url);  
+   const data = await response.json();
+
+**Purpose:** Allows client-side JavaScript to request and handle data from a server, enabling dynamic web applications.
+
+---
+
+### 20. What Does Node.js Do?
+
+- **Node.js** is a **JavaScript runtime environment** built on Chrome's V8 engine.
+- Allows developers to run **JavaScript on the server** outside the browser.
+- Key Features:
+  1. **Server-side scripting** – build web servers and APIs using JavaScript.
+  2. **Non-blocking, event-driven I/O** – handles many concurrent connections efficiently.
+  3. **Package management** – uses **npm** to install and manage libraries.
+  4. **File system and networking access** – can read/write files, open sockets, interact with databases.
+- Enables building **full-stack JavaScript applications** without switching languages between client and server.
+
+---
+
+### 21. What Does PM2 Do?
+
+- **PM2** is a **process manager** for Node.js applications.
+- Key functions:
+  1. **Process management**
+     - Starts, stops, restarts, and monitors Node.js apps.
+  2. **Daemon mode**
+     - Runs apps in the background, keeping them alive after logout or server restart.
+  3. **Load balancing**
+     - Can run multiple instances of an app to utilize multiple CPU cores.
+  4. **Monitoring and logging**
+     - Tracks memory, CPU usage, and logs for easy debugging.
+  5. **Startup scripts**
+     - Can configure apps to start automatically on system boot.
+- Useful for **production deployment** of Node.js services.
+
+---
+
+### 22. What Does Vite Do?
+
+- **Vite** is a **modern frontend build tool** for web development.
+- Key purposes:
+  1. **Development server**
+     - Provides **fast hot module replacement (HMR)** for instant updates during development.
+  2. **Build tool**
+     - Bundles and optimizes assets for production using **Rollup** under the hood.
+  3. **Supports modern JavaScript and frameworks**
+     - Works with React, Vue, Svelte, and plain JS projects.
+  4. **ES modules**
+     - Uses native ES module imports for lightning-fast dev startup.
+  5. **Plugin ecosystem**
+     - Extensible via Vite plugins for additional functionality (e.g., TypeScript, JSX, CSS preprocessors).
+- Goal: **improve development speed and productivity** compared to traditional bundlers like Webpack.
+
+
+---
+
+
 [My startup - Recipes Please](https://startup.recipesplease.click)
 
 ## Helpful links
